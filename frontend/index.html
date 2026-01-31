@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAE Credit Card Advisor - Find Your Perfect Card</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 2rem; }
+        
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+        
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.1rem; opacity: 0.95; }
+        
+        .form-section { padding: 2.5rem; }
+        .section-title { font-size: 1.5rem; color: #667eea; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .section-title::before { content: ''; width: 4px; height: 24px; background: #667eea; border-radius: 2px; }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; font-weight: 600; color: #333; margin-bottom: 0.5rem; font-size: 0.95rem; }
+        input[type="number"] { width: 100%; padding: 0.9rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: border 0.3s; }
+        input:focus { outline: none; border-color: #667eea; }
+        
+        .spending-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .spending-item { display: flex; flex-direction: column; }
+        .spending-item label { display: flex; align-items: center; gap: 0.5rem; }
+        
+        .goals-section { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.5rem; }
+        .goal-tag { padding: 0.6rem 1.2rem; border: 2px solid #e0e0e0; border-radius: 25px; cursor: pointer; transition: all 0.3s; user-select: none; position: relative; }
+        .goal-tag:hover { border-color: #667eea; background: #f5f7ff; }
+        .goal-tag.selected { background: #667eea; color: white; border-color: #667eea; }
+        .goal-tag.priority { background: #FFD700; color: #333; border-color: #FFD700; font-weight: 600; }
+        .goal-tag .priority-badge { display: none; position: absolute; top: -8px; right: -8px; background: #FF4444; color: white; width: 24px; height: 24px; border-radius: 50%; font-weight: bold; font-size: 0.85rem; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+        .goal-tag.priority .priority-badge { display: flex; }
+        
+        .lifestyle-section { margin-top: 1.5rem; }
+        .lifestyle-category { margin-bottom: 1.5rem; }
+        .service-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .service-tag { padding: 0.5rem 1rem; border: 2px solid #e0e0e0; border-radius: 20px; cursor: pointer; transition: all 0.3s; user-select: none; font-size: 0.9rem; position: relative; }
+        .service-tag:hover { border-color: #667eea; background: #f5f7ff; }
+        .service-tag.selected { background: #667eea; color: white; border-color: #667eea; }
+        .service-tag.selected::after { content: attr(data-usage); position: absolute; top: -8px; right: -8px; background: #FFD700; color: #333; font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; }
+        .service-tag.add-custom { border-style: dashed; color: #667eea; }
+        .service-tag.add-custom:hover { background: #667eea; color: white; }
+        
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 400px; width: 90%; }
+        .modal-content h3 { color: #667eea; margin-bottom: 1rem; }
+        .modal-content input[type="range"] { width: 100%; margin: 1rem 0; }
+        .modal-content input[type="text"] { width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; }
+        
+        .submit-btn { width: 100%; padding: 1.2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; margin-top: 2rem; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        
+        .results { display: none; padding: 2.5rem; background: #f9fafb; }
+        .results.show { display: block; }
+        
+        .summary-box { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .summary-box h3 { color: #667eea; margin-bottom: 1rem; }
+        .summary-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+        .stat { text-align: center; padding: 1rem; background: #f5f7ff; border-radius: 8px; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: #667eea; }
+        .stat-label { font-size: 0.85rem; color: #666; margin-top: 0.3rem; }
+        
+        .card-result { background: white; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid #667eea; position: relative; transition: transform 0.3s; }
+        .card-result:hover { transform: translateX(5px); }
+        .card-result.rank-1 { border-left-color: #FFD700; }
+        .card-result.rank-2 { border-left-color: #C0C0C0; }
+        .card-result.rank-3 { border-left-color: #CD7F32; }
+        .card-result.goal-based { border-left-color: #667eea; background: linear-gradient(to right, #f5f7ff 0%, white 10%); }
+        .card-result.premium-goal { border-left-color: #ffc107; background: linear-gradient(to right, #fff3cd 0%, white 10%); }
+        .card-result.top-choice { border-left-color: #FFD700; background: linear-gradient(to right, #FFF8DC 0%, white 15%); box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3); }
+        .top-choice-badge { background: linear-gradient(135deg, #FFD700, #FFA500); color: #333; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: bold; margin-bottom: 1rem; display: inline-block; }
+        
+        .follow-up-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .filter-form { background: #f9fafb; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; }
+        .filter-form h4 { color: #333; margin-bottom: 1rem; }
+        .filter-input-group { margin-bottom: 1rem; }
+        .filter-input-group label { display: block; font-weight: 600; color: #333; margin-bottom: 0.5rem; }
+        .filter-input-group select, .filter-input-group input { width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; }
+        .filter-input-group select:focus, .filter-input-group input:focus { outline: none; border-color: #667eea; }
+        .filter-btn { padding: 0.8rem 2rem; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .filter-btn:hover { background: #5568d3; transform: translateY(-2px); }
+        .filter-success { margin-top: 1rem; }
+        
+        .rank-badge { position: absolute; top: 1rem; right: 1rem; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; }
+        .rank-badge.rank-1 { background: #FFD700; color: #333; }
+        .rank-badge.rank-2 { background: #C0C0C0; color: #333; }
+        .rank-badge.rank-3 { background: #CD7F32; color: white; }
+        
+        .card-header { margin-bottom: 1rem; }
+        .card-result h3 { color: #667eea; margin-bottom: 0.3rem; font-size: 1.4rem; padding-right: 50px; display: flex; align-items: center; gap: 0.8rem; }
+        .card-logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #f5f5f5; padding: 5px; border: 2px solid #e0e0e0; flex-shrink: 0; }
+        .goal-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0 1rem 0; }
+        .goal-badge-tag { background: #667eea; color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600; }
+        .card-result .bank { color: #666; font-size: 0.9rem; margin-bottom: 0.8rem; }
+        
+        .card-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin: 1rem 0; padding: 1rem; background: #f9fafb; border-radius: 8px; }
+        .detail-item { text-align: center; }
+        .detail-label { font-size: 0.8rem; color: #666; margin-bottom: 0.3rem; }
+        .detail-value { font-weight: bold; color: #333; }
+        
+        .fit-score { display: inline-block; background: #667eea; color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; }
+        
+        .reasons { list-style: none; margin: 1rem 0; }
+        .reasons li { padding: 0.5rem 0; color: #555; display: flex; align-items: start; gap: 0.5rem; line-height: 1.5; }
+        .reasons li::before { content: '✓'; color: #667eea; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; }
+        
+        .value-highlight { background: linear-gradient(135deg, #667eea15, #764ba215); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 3px solid #667eea; }
+        .value-highlight strong { color: #764ba2; }
+        
+        .apply-btn { display: inline-block; margin-top: 1rem; padding: 0.8rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s; }
+        .apply-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
+        
+        .no-results { text-align: center; padding: 3rem; color: #666; }
+        .no-results-icon { font-size: 4rem; margin-bottom: 1rem; }
+        
+        .loading { display: none; text-align: center; padding: 3rem; }
+        .loading.show { display: block; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .error-message { background: #fee; border: 2px solid #fcc; color: #c33; padding: 1rem; border-radius: 8px; margin: 1rem 0; display: none; }
+        .error-message.show { display: block; }
+        
+        .reset-btn { background: white; color: #667eea; border: 2px solid #667eea; padding: 0.8rem 2rem; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 2rem; transition: all 0.3s; }
+        .reset-btn:hover { background: #667eea; color: white; }
+        
+        .recommendation-section { margin-bottom: 3rem; }
+        .recommendation-section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding: 1rem; background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 10px; }
+        .recommendation-section-header.goal-based { background: linear-gradient(135deg, #667eea15, #764ba215); }
+        .recommendation-section-header.spending-based { background: linear-gradient(135deg, #10b98115, #059f6715); }
+        .recommendation-section-header h2 { margin: 0; color: #333; font-size: 1.5rem; }
+        .recommendation-section-header p { margin: 0.3rem 0 0 0; color: #666; font-size: 0.95rem; }
+        
+        .recommendations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        @media (max-width: 1024px) { .recommendations-grid { grid-template-columns: 1fr; } }
+        
+        .chat-section { background: white; border-radius: 12px; padding: 2rem; margin-top: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .chat-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .chat-messages { max-height: 300px; overflow-y: auto; border: 2px solid #e0e0e0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; background: #f9fafb; }
+        .chat-message { margin-bottom: 1rem; padding: 0.8rem; border-radius: 8px; }
+        .chat-message.user { background: #667eea; color: white; margin-left: 20%; }
+        .chat-message.agent { background: white; border: 1px solid #e0e0e0; margin-right: 20%; }
+        .chat-input-group { display: flex; gap: 0.5rem; }
+        .chat-input-group input { flex: 1; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px; }
+        .chat-input-group button { padding: 0.8rem 1.5rem; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .chat-input-group button:hover { background: #5568d3; }
+        
+        .icon { font-size: 1.2rem; }
+        
+        /* Questionnaire Modal Styles */
+        .questionnaire-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; }
+        .questionnaire-overlay.show { display: flex; animation: fadeIn 0.3s; }
+        .questionnaire-modal { background: white; border-radius: 16px; width: 90%; max-width: 550px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.4s; }
+        .modal-header-q { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        .modal-header-q h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .modal-header-q p { opacity: 0.9; font-size: 0.95rem; }
+        .progress-bar-q { height: 4px; background: rgba(255,255,255,0.3); margin-top: 1rem; border-radius: 2px; overflow: hidden; }
+        .progress-fill-q { height: 100%; background: white; transition: width 0.4s ease; }
+        .modal-body-q { padding: 2rem; flex: 1; overflow-y: auto; }
+        .question-card { animation: slideInRight 0.4s; }
+        .question-card.exit { animation: slideOutLeft 0.3s; }
+        .question-text { font-size: 1.2rem; color: #333; margin-bottom: 0.5rem; font-weight: 600; }
+        .question-context { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .answer-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .answer-option { padding: 1rem 1.5rem; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.3s; background: white; text-align: left; font-size: 1rem; display: flex; align-items: center; gap: 1rem; position: relative; }
+        .answer-option:hover { border-color: #667eea; background: #f5f7ff; transform: translateX(5px); }
+        .answer-option.selected { border-color: #667eea; background: #667eea; color: white; }
+        .answer-option.ranked { border-color: #FFD700; background: #FFF8DC; }
+        .answer-option .checkmark { display: none; margin-left: auto; font-size: 1.2rem; }
+        .answer-option.selected .checkmark { display: block; }
+        .answer-option .rank-badge { display: none; position: absolute; top: -8px; right: -8px; background: #FFD700; color: #333; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; font-size: 0.9rem; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .answer-option.ranked .rank-badge { display: flex; }
+        .answer-option .opt-icon { font-size: 1.5rem; }
+        .answer-option .opt-text { flex: 1; }
+        .custom-input-field { margin-top: 1rem; padding: 1rem; background: #f5f7ff; border-radius: 8px; border: 2px solid #e0e0e0; }
+        .custom-input-field label { display: block; font-weight: 600; color: #667eea; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .custom-input-field input { width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 0.95rem; }
+        .custom-input-field input:focus { outline: none; border-color: #667eea; }
+        .modal-footer-q { padding: 1.5rem 2rem; border-top: 1px solid #e0e0e0; display: flex; gap: 1rem; justify-content: space-between; background: white; flex-shrink: 0; }
+        .btn-secondary-q { padding: 0.8rem 1.5rem; background: white; color: #667eea; border: 2px solid #667eea; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-secondary-q:hover { background: #f5f7ff; }
+        .btn-primary-q { padding: 0.8rem 2rem; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-primary-q:hover { background: #5568d3; }
+        .btn-primary-q:disabled { opacity: 0.5; cursor: not-allowed; }
+        .skip-hint { font-size: 0.85rem; color: #999; text-align: center; margin-top: 1rem; }
+        .insight-card-q { display: none; padding: 1.5rem; background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 12px; margin-top: 1rem; border-left: 4px solid #667eea; animation: fadeIn 0.5s; }
+        .insight-card-q.show { display: block; }
+        .insight-card-q .insight-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .insight-card-q .insight-title { font-weight: 600; color: #667eea; margin-bottom: 0.5rem; }
+        .insight-card-q .insight-content { color: #666; line-height: 1.5; font-size: 0.95rem; }
+        .loading-progress-q { margin-top: 1rem; }
+        .loading-bar-q { height: 6px; background: #e0e0e0; border-radius: 3px; overflow: hidden; }
+        .loading-bar-fill-q { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); animation: loading 2s ease-in-out infinite; }
+        @keyframes slideInRight { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-30px); opacity: 0; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes loading { 0%, 100% { transform: translateX(-100%); } 50% { transform: translateX(100%); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💳 UAE Credit Card Advisor</h1>
+            <p>Find the perfect credit card tailored to your lifestyle and spending habits</p>
+        </div>
+
+        <form id="profileForm" class="form-section">
+            <div class="section-title">📊 Financial Profile</div>
+            
+            <div class="form-group">
+                <label for="salary">Monthly Salary (AED)</label>
+                <input type="number" id="salary" name="salary" placeholder="e.g., 15000" required min="1000" value="30000">
+            </div>
+
+            <div class="section-title">💰 Monthly Spending</div>
+            <p style="color: #666; margin-bottom: 1rem; font-size: 0.9rem;">Enter your approximate monthly spending in each category (AED)</p>
+            
+            <div class="spending-grid">
+                <div class="spending-item">
+                    <label><span class="icon">🛒</span> Groceries</label>
+                    <input type="number" name="groceries" placeholder="0" min="0" value="2000">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">✈️</span> International Travel</label>
+                    <input type="number" name="international_travel" placeholder="0" min="0" value="1000">
+                    <small style="color: #666; font-size: 0.8rem;">Flights, hotels, foreign spending</small>
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">🚗</span> Local Transport</label>
+                    <input type="number" name="domestic_transport" placeholder="0" min="0" value="800">
+                    <small style="color: #666; font-size: 0.8rem;">Careem, RTA, metro, parking</small>
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">⛽</span> Fuel</label>
+                    <input type="number" name="fuel" placeholder="0" min="0" value="0">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">🛍️</span> Online Shopping</label>
+                    <input type="number" name="online" placeholder="0" min="0" value="1500">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">🍽️</span> Dining</label>
+                    <input type="number" name="dining" placeholder="0" min="0" value="1200">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">🎓</span> Education</label>
+                    <input type="number" name="education" placeholder="0" min="0" value="0">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">💸</span> Remittances</label>
+                    <input type="number" name="remittances" placeholder="0" min="0" value="0">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">🎬</span> Entertainment</label>
+                    <input type="number" name="entertainment" placeholder="0" min="0" value="800">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">🏥</span> Healthcare</label>
+                    <input type="number" name="healthcare" placeholder="0" min="0" value="0">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">📱</span> Utilities/Bills</label>
+                    <input type="number" name="utilities" placeholder="0" min="0" value="0">
+                </div>
+                <div class="spending-item">
+                    <label><span class="icon">💳</span> Miscellaneous</label>
+                    <input type="number" name="miscellaneous" placeholder="0" min="0" value="8000">
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 2rem;">🎯 Your Goals & Priorities</div>
+            <p style="color: #666; margin-bottom: 1rem; font-size: 0.9rem;">Click to select goals. Click again to set priority (1 = highest). Select up to 4 priorities.</p>
+            
+            <div class="goals-section">
+                <div class="goal-tag" data-goal="travel"><span class="priority-badge"></span>✈️ Travel Miles</div>
+                <div class="goal-tag" data-goal="cashback"><span class="priority-badge"></span>💵 Cashback</div>
+                <div class="goal-tag" data-goal="no_fee"><span class="priority-badge"></span>🆓 No Annual Fee</div>
+                <div class="goal-tag" data-goal="airport_lounge"><span class="priority-badge"></span>🛫 Airport Lounge</div>
+                <div class="goal-tag" data-goal="dining"><span class="priority-badge"></span>🍽️ Dining Rewards</div>
+                <div class="goal-tag" data-goal="premium"><span class="priority-badge"></span>⭐ Premium Benefits</div>
+                <div class="goal-tag" data-goal="fuel"><span class="priority-badge"></span>⛽ Fuel Savings</div>
+                <div class="goal-tag" data-goal="online"><span class="priority-badge"></span>🛍️ Online Shopping</div>
+            </div>
+
+            <div class="section-title" style="margin-top: 2rem;">🏪 Your Lifestyle (Optional)</div>
+            <p style="color: #666; margin-bottom: 1rem; font-size: 0.9rem;">Select services you use regularly for better recommendations</p>
+            
+            <div class="lifestyle-section">
+                <div class="lifestyle-category">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">🛒 Groceries</label>
+                    <div class="service-tags">
+                        <div class="service-tag" data-category="groceries" data-service="lulu">Lulu</div>
+                        <div class="service-tag" data-category="groceries" data-service="carrefour">Carrefour</div>
+                        <div class="service-tag" data-category="groceries" data-service="amazon_fresh">Amazon Fresh</div>
+                        <div class="service-tag" data-category="groceries" data-service="noon_daily">Noon Daily</div>
+                        <div class="service-tag add-custom" data-category="groceries">+ Add Other</div>
+                    </div>
+                </div>
+                
+                <div class="lifestyle-category">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">🛍️ Online Shopping</label>
+                    <div class="service-tags">
+                        <div class="service-tag" data-category="online_shopping" data-service="amazon_ae">Amazon.ae</div>
+                        <div class="service-tag" data-category="online_shopping" data-service="noon">Noon</div>
+                        <div class="service-tag" data-category="online_shopping" data-service="namshi">Namshi</div>
+                        <div class="service-tag add-custom" data-category="online_shopping">+ Add Other</div>
+                    </div>
+                </div>
+                
+                <div class="lifestyle-category">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">🏬 Retail Stores</label>
+                    <div class="service-tags">
+                        <div class="service-tag" data-category="retail_stores" data-service="centrepoint">Centrepoint</div>
+                        <div class="service-tag" data-category="retail_stores" data-service="splash">Splash</div>
+                        <div class="service-tag" data-category="retail_stores" data-service="lifestyle">Lifestyle</div>
+                        <div class="service-tag" data-category="retail_stores" data-service="home_centre">Home Centre</div>
+                        <div class="service-tag" data-category="retail_stores" data-service="max_fashion">Max Fashion</div>
+                        <div class="service-tag add-custom" data-category="retail_stores">+ Add Other</div>
+                    </div>
+                </div>
+                
+                <div class="lifestyle-category">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">⛽ Fuel Stations</label>
+                    <div class="service-tags">
+                        <div class="service-tag" data-category="fuel_stations" data-service="adnoc">ADNOC</div>
+                        <div class="service-tag" data-category="fuel_stations" data-service="enoc">ENOC</div>
+                        <div class="service-tag" data-category="fuel_stations" data-service="emarat">Emarat</div>
+                        <div class="service-tag add-custom" data-category="fuel_stations">+ Add Other</div>
+                    </div>
+                </div>
+                
+                <div class="lifestyle-category">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">🎬 Entertainment</label>
+                    <div class="service-tags">
+                        <div class="service-tag" data-category="entertainment" data-service="vox_cinemas">VOX Cinemas</div>
+                        <div class="service-tag" data-category="entertainment" data-service="reel_cinemas">Reel Cinemas</div>
+                        <div class="service-tag" data-category="entertainment" data-service="magic_planet">Magic Planet</div>
+                        <div class="service-tag" data-category="entertainment" data-service="city_centre">City Centre</div>
+                        <div class="service-tag" data-category="entertainment" data-service="dubai_parks">Dubai Parks</div>
+                        <div class="service-tag add-custom" data-category="entertainment">+ Add Other</div>
+                    </div>
+                </div>
+                
+                <div class="lifestyle-category">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">✈️ Airlines</label>
+                    <div class="service-tags">
+                        <div class="service-tag" data-category="airlines" data-service="emirates">Emirates</div>
+                        <div class="service-tag" data-category="airlines" data-service="etihad">Etihad</div>
+                        <div class="service-tag" data-category="airlines" data-service="flydubai">FlyDubai</div>
+                        <div class="service-tag" data-category="airlines" data-service="air_arabia">Air Arabia</div>
+                        <div class="service-tag add-custom" data-category="airlines">+ Add Other</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="usageModal" class="modal">
+                <div class="modal-content">
+                    <h3 id="modalTitle">How much do you use this service?</h3>
+                    <p style="color: #666; margin-bottom: 1rem;">This helps us recommend the best card for you</p>
+                    <label>Usage Percentage (% of your spending in this category)</label>
+                    <input type="range" id="usageSlider" min="10" max="100" value="50" step="10">
+                    <div style="text-align: center; font-size: 1.5rem; font-weight: bold; color: #667eea; margin: 1rem 0;">
+                        <span id="usageValue">50</span>%
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" onclick="removeService()" style="flex: 1; background: #ff4444; color: white;">Remove</button>
+                        <button type="button" onclick="closeModal()" style="flex: 1; background: #e0e0e0; color: #333;">Cancel</button>
+                        <button type="button" onclick="saveUsage()" style="flex: 1;">Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="customModal" class="modal">
+                <div class="modal-content">
+                    <h3>Add Custom Service</h3>
+                    <label>Service Name</label>
+                    <input type="text" id="customServiceName" placeholder="e.g., Spinneys, Union Coop">
+                    <label style="margin-top: 1rem;">Usage Percentage</label>
+                    <input type="range" id="customUsageSlider" min="10" max="100" value="50" step="10">
+                    <div style="text-align: center; font-size: 1.5rem; font-weight: bold; color: #667eea; margin: 1rem 0;">
+                        <span id="customUsageValue">50</span>%
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" onclick="closeCustomModal()" style="flex: 1; background: #e0e0e0; color: #333;">Cancel</button>
+                        <button type="button" onclick="saveCustomService()" style="flex: 1;">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Get My Recommendations</button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="color: #667eea; font-weight: 600; font-size: 1.1rem;">Analyzing your profile...</p>
+            <p style="color: #999; margin-top: 0.5rem;">Finding the best cards for you</p>
+        </div>
+
+        <div class="results" id="results">
+            <div class="summary-box" id="summaryBox"></div>
+            
+            <!-- Top Choices Section (Horizontal) -->
+            <div id="topChoicesSection" class="recommendation-section" style="display: none;">
+                <div class="recommendation-section-header" style="background: linear-gradient(135deg, #FFD70015, #FFA50015); border: 2px solid #FFD700;">
+                    <div style="font-size: 2rem;">🏆</div>
+                    <div>
+                        <h2 style="color: #B8860B;">Perfect Matches</h2>
+                        <p style="color: #B8860B;">Cards that match both your goals and spending patterns</p>
+                    </div>
+                </div>
+                <div id="topChoicesContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;"></div>
+            </div>
+            
+            <div class="recommendations-grid">
+                <div id="goalBasedSection" class="recommendation-section" style="display: none;">
+                    <div class="recommendation-section-header goal-based">
+                        <div style="font-size: 2rem;">🎯</div>
+                        <div>
+                            <h2>Goal-Based</h2>
+                            <p>Achieve your goals</p>
+                        </div>
+                    </div>
+                    <div id="goalCardsContainer"></div>
+                </div>
+                
+                <div id="spendingBasedSection" class="recommendation-section">
+                    <div class="recommendation-section-header spending-based">
+                        <div style="font-size: 2rem;">💰</div>
+                        <div>
+                            <h2>Spending-Based</h2>
+                            <p>Match your spending</p>
+                        </div>
+                    </div>
+                    <div id="spendingCardsContainer"></div>
+                </div>
+            </div>
+            
+            <div style="background: #f9fafb; border-left: 4px solid #667eea; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                <h4 style="color: #667eea; margin-bottom: 0.5rem;">💡 How Estimated Value is Calculated</h4>
+                <p style="color: #666; line-height: 1.6; margin: 0;">
+                    The estimated annual value is calculated based on your monthly spending and each card's reward rates. 
+                    <strong>For co-branded cards</strong> (like Amazon, Noon, Lulu):
+                </p>
+                <ul style="color: #666; line-height: 1.6; margin: 0.5rem 0 0 1.5rem;">
+                    <li><strong>With lifestyle data:</strong> We only count spending at partner merchants you actually use. Non-partner spending is excluded and noted.</li>
+                    <li><strong>Without lifestyle data:</strong> We assume all spending happens at partner merchants (marked as "assumes all spending at partner merchants").</li>
+                </ul>
+                <p style="color: #666; line-height: 1.6; margin: 0.5rem 0 0 0;">
+                    💡 <em>Tip: Provide lifestyle preferences for more accurate value estimates on co-branded cards.</em>
+                </p>
+            </div>
+            
+            <div class="chat-section">
+                <div class="chat-header">
+                    <div style="font-size: 2rem;">💬</div>
+                    <div>
+                        <h2 style="margin: 0; color: #667eea;">Have Questions? Chat with Our Advisor</h2>
+                        <p style="margin: 0.3rem 0 0 0; color: #666;">Ask about specific cards, compare options, or refine your search</p>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-message agent">
+                        👋 Hi! I'm here to help you find the perfect credit card. Feel free to ask me anything like:
+                        <ul style="margin: 0.5rem 0 0 1rem;">
+                            <li>"What if my salary increases to 20K?"</li>
+                            <li>"Compare Emirates Skywards vs ADCB Traveller"</li>
+                            <li>"Show me cards with no annual fee"</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chat-input-group">
+                    <input type="text" id="chatInput" placeholder="Type your question here..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                    <button onclick="sendChatMessage()">Send</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="reset-btn" onclick="resetForm()">Start New Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Questionnaire Modal -->
+    <div id="questionnaireOverlay" class="questionnaire-overlay">
+        <div class="questionnaire-modal">
+            <div class="modal-header-q">
+                <h2>🎯 Help Us Personalize Your Recommendations</h2>
+                <p>Answer <span id="totalQuestionsQ">3</span> quick questions for better card matches</p>
+                <div class="progress-bar-q">
+                    <div id="progressFillQ" class="progress-fill-q" style="width: 33%"></div>
+                </div>
+            </div>
+            <div class="modal-body-q">
+                <div id="questionContainerQ" class="question-card"></div>
+                <div class="skip-hint">💡 Skip if unsure - we'll still give you great recommendations</div>
+                <div id="insightCardQ" class="insight-card-q">
+                    <div class="insight-icon">✨</div>
+                    <div class="insight-title">Did you know?</div>
+                    <div class="insight-content" id="insightContentQ"></div>
+                    <div class="loading-progress-q">
+                        <div class="loading-bar-q"><div class="loading-bar-fill-q"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer-q">
+                <button class="btn-secondary-q" onclick="skipQuestionQ()">Skip</button>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="backBtnQ" class="btn-secondary-q" onclick="previousQuestionQ()" style="display: none;">← Back</button>
+                    <button id="nextBtnQ" class="btn-primary-q" onclick="nextQuestionQ()" disabled>Next →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Goal selection with priority ranking
+        let goalPriorities = [];
+        document.querySelectorAll('.goal-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                const goal = tag.dataset.goal;
+                
+                if (tag.classList.contains('priority')) {
+                    // Deselect completely
+                    tag.classList.remove('priority');
+                    const idx = goalPriorities.indexOf(goal);
+                    if (idx > -1) goalPriorities.splice(idx, 1);
+                    updatePriorityBadges();
+                } else if (tag.classList.contains('selected')) {
+                    // Deselect
+                    tag.classList.remove('selected');
+                } else {
+                    // Select and set as priority if less than 4 priorities
+                    if (goalPriorities.length < 4) {
+                        tag.classList.add('priority');
+                        goalPriorities.push(goal);
+                        updatePriorityBadges();
+                    } else {
+                        // Just select without priority
+                        tag.classList.add('selected');
+                    }
+                }
+            });
+        });
+        
+        function updatePriorityBadges() {
+            document.querySelectorAll('.goal-tag.priority').forEach((tag, index) => {
+                const badge = tag.querySelector('.priority-badge');
+                const goal = tag.dataset.goal;
+                const priority = goalPriorities.indexOf(goal) + 1;
+                if (badge && priority > 0) {
+                    badge.textContent = priority;
+                }
+            });
+        }
+        
+        // Service selection with usage tracking
+        let currentTag = null;
+        let currentCategory = null;
+        
+        document.querySelectorAll('.service-tag:not(.add-custom)').forEach(tag => {
+            tag.addEventListener('click', () => {
+                if (tag.classList.contains('selected')) {
+                    // Re-edit usage percentage
+                    currentTag = tag;
+                    currentCategory = tag.dataset.category;
+                    document.getElementById('modalTitle').textContent = `How much do you use ${tag.textContent}?`;
+                    const currentUsage = parseInt(tag.dataset.usage) || 50;
+                    document.getElementById('usageSlider').value = currentUsage;
+                    document.getElementById('usageValue').textContent = currentUsage;
+                    document.getElementById('usageModal').classList.add('show');
+                } else {
+                    currentTag = tag;
+                    currentCategory = tag.dataset.category;
+                    document.getElementById('modalTitle').textContent = `How much do you use ${tag.textContent}?`;
+                    document.getElementById('usageSlider').value = 50;
+                    document.getElementById('usageValue').textContent = 50;
+                    document.getElementById('usageModal').classList.add('show');
+                }
+            });
+        });
+        
+        // Add custom service
+        document.querySelectorAll('.add-custom').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentCategory = btn.dataset.category;
+                document.getElementById('customServiceName').value = '';
+                document.getElementById('customUsageSlider').value = 50;
+                document.getElementById('customUsageValue').textContent = 50;
+                document.getElementById('customModal').classList.add('show');
+            });
+        });
+        
+        // Usage slider
+        document.getElementById('usageSlider').addEventListener('input', (e) => {
+            document.getElementById('usageValue').textContent = e.target.value;
+        });
+        
+        document.getElementById('customUsageSlider').addEventListener('input', (e) => {
+            document.getElementById('customUsageValue').textContent = e.target.value;
+        });
+        
+        function closeModal() {
+            document.getElementById('usageModal').classList.remove('show');
+            currentTag = null;
+        }
+        
+        function removeService() {
+            if (currentTag) {
+                currentTag.classList.remove('selected');
+                currentTag.removeAttribute('data-usage');
+            }
+            closeModal();
+        }
+        
+        function closeCustomModal() {
+            document.getElementById('customModal').classList.remove('show');
+        }
+        
+        function saveUsage() {
+            const usage = parseInt(document.getElementById('usageSlider').value);
+            if (currentTag) {
+                // Check total usage in category
+                const category = currentTag.dataset.category;
+                const otherTags = document.querySelectorAll(`.service-tag.selected[data-category="${category}"]`);
+                let totalUsage = 0;
+                otherTags.forEach(tag => {
+                    if (tag !== currentTag) {
+                        totalUsage += parseInt(tag.dataset.usage) || 0;
+                    }
+                });
+                totalUsage += usage;
+                
+                if (totalUsage > 100) {
+                    alert(`Total usage in this category cannot exceed 100%. Current total would be ${totalUsage}%`);
+                    return;
+                }
+                
+                currentTag.classList.add('selected');
+                currentTag.setAttribute('data-usage', usage + '%');
+            }
+            closeModal();
+        }
+        
+        function saveCustomService() {
+            const name = document.getElementById('customServiceName').value.trim();
+            const usage = parseInt(document.getElementById('customUsageSlider').value);
+            
+            if (!name) {
+                alert('Please enter a service name');
+                return;
+            }
+            
+            // Check total usage in category
+            const otherTags = document.querySelectorAll(`.service-tag.selected[data-category="${currentCategory}"]`);
+            let totalUsage = 0;
+            otherTags.forEach(tag => {
+                totalUsage += parseInt(tag.dataset.usage) || 0;
+            });
+            totalUsage += usage;
+            
+            if (totalUsage > 100) {
+                alert(`Total usage in this category cannot exceed 100%. Current total would be ${totalUsage}%`);
+                return;
+            }
+            
+            // Create new tag and add to DOM
+            const categoryContainer = document.querySelector(`.lifestyle-category [data-category="${currentCategory}"]`);
+            if (!categoryContainer) return;
+            
+            const container = categoryContainer.parentElement;
+            const newTag = document.createElement('div');
+            newTag.className = 'service-tag selected';
+            newTag.dataset.category = currentCategory;
+            newTag.dataset.service = name.toLowerCase().replace(/\s+/g, '_');
+            newTag.dataset.usage = usage + '%';
+            newTag.textContent = name;
+            
+            // Insert before "+ Add Other" button
+            const addBtn = container.querySelector('.add-custom');
+            container.insertBefore(newTag, addBtn);
+            
+            // Add click handler to allow re-editing usage
+            newTag.addEventListener('click', () => {
+                currentTag = newTag;
+                currentCategory = newTag.dataset.category;
+                document.getElementById('modalTitle').textContent = `How much do you use ${newTag.textContent}?`;
+                const currentUsage = parseInt(newTag.dataset.usage) || 50;
+                document.getElementById('usageSlider').value = currentUsage;
+                document.getElementById('usageValue').textContent = currentUsage;
+                document.getElementById('usageModal').classList.add('show');
+            });
+            
+            closeCustomModal();
+        }
+
+        // Form submission
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            // Collect form data
+            const formData = new FormData(e.target);
+            const salary = parseInt(formData.get('salary'));
+            const spend = {
+                groceries: parseInt(formData.get('groceries')) || 0,
+                international_travel: parseInt(formData.get('international_travel')) || 0,
+                domestic_transport: parseInt(formData.get('domestic_transport')) || 0,
+                fuel: parseInt(formData.get('fuel')) || 0,
+                online: parseInt(formData.get('online')) || 0,
+                dining: parseInt(formData.get('dining')) || 0,
+                education: parseInt(formData.get('education')) || 0,
+                remittances: parseInt(formData.get('remittances')) || 0,
+                entertainment: parseInt(formData.get('entertainment')) || 0,
+                healthcare: parseInt(formData.get('healthcare')) || 0,
+                utilities: parseInt(formData.get('utilities')) || 0,
+                miscellaneous: parseInt(formData.get('miscellaneous')) || 0
+            };
+            
+            // Collect selected goals with priorities
+            const allGoals = Array.from(document.querySelectorAll('.goal-tag.selected, .goal-tag.priority'))
+                .map(tag => tag.dataset.goal);
+            
+            // Create goal priorities object for top 4
+            const goalPrioritiesObj = {};
+            goalPriorities.forEach((goal, index) => {
+                goalPrioritiesObj[goal] = index + 1;
+            });
+            
+            // Collect lifestyle preferences with usage percentages
+            const lifestyle = {};
+            document.querySelectorAll('.service-tag.selected').forEach(tag => {
+                const category = tag.dataset.category;
+                const service = tag.dataset.service;
+                const usage = parseInt(tag.dataset.usage) || 50;
+                
+                if (!lifestyle[category]) lifestyle[category] = [];
+                lifestyle[category].push({
+                    service: service,
+                    usage_percent: usage
+                });
+            });
+            
+            const profile = { salary, spend, goals: allGoals, goal_priorities: goalPrioritiesObj, lifestyle };
+            
+            // Check if we should ask questions (check spending vs lifestyle gaps)
+            const hasLifestyle = Object.keys(lifestyle).length > 0;
+            
+            // Always check for gaps even if some lifestyle is provided
+            console.log('Checking if questions needed...');
+            console.time('Generate Questions');
+            const questionsResponse = await fetch('http://localhost:5001/api/generate-questions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ salary, spend, lifestyle })
+            });
+            console.timeEnd('Generate Questions');
+            
+            if (questionsResponse.ok) {
+                const questionsData = await questionsResponse.json();
+                console.log('Questions data:', questionsData);
+                
+                if (questionsData.should_ask && questionsData.questions.length > 0) {
+                    console.log('Showing questionnaire modal...');
+                    const answers = await showQuestionnaireModal(questionsData.questions);
+                    console.log('Questionnaire answers:', answers);
+                    profile.questionnaire_answers = answers;
+                }
+            } else {
+                console.error('Questions endpoint failed:', questionsResponse.status);
+            }
+            
+            // Show loading
+            submitBtn.disabled = true;
+            errorMsg.classList.remove('show');
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('loading').scrollIntoView({ behavior: 'smooth' });
+            
+            try {
+                // Call backend API
+                console.log('Sending profile to backend:', profile);
+                console.time('API Call');
+                const response = await fetch('http://localhost:5001/api/recommend', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(profile)
+                });
+                console.timeEnd('API Call');
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API Error:', errorText);
+                    throw new Error(`API returned ${response.status}: ${errorText}`);
+                }
+                
+                console.time('Parse JSON');
+                const result = await response.json();
+                console.timeEnd('Parse JSON');
+                console.log('Received result:', result);
+                
+                // Close questionnaire modal if it was shown
+                closeQuestionnaireQ();
+                
+                console.time('Display Recommendations');
+                displayRecommendations(result, profile);
+                console.timeEnd('Display Recommendations');
+                
+                currentProfile = profile; // Store for chat
+                currentRecommendations = result.recommendations; // Store for filtering
+                
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('results').classList.add('show');
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error:', error);
+                errorMsg.textContent = 'Failed to get recommendations. Please check if the backend server is running on port 5001.';
+                errorMsg.classList.add('show');
+                
+                document.getElementById('loading').classList.remove('show');
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        function getMockRecommendations(profile) {
+            const cards = [
+                {
+                    card_name: "Emirates Skywards Signature Card",
+                    bank: "Emirates NBD",
+                    annual_fee: 995,
+                    min_salary: 15000,
+                    fit_score: 0.92,
+                    reasons: [
+                        "Earns 3 Skywards Miles per AED on travel bookings - perfect for your travel spending",
+                        "Includes complimentary airport lounge access matching your goals",
+                        "Salary requirement (15K AED) aligns with your income",
+                        "Comprehensive travel insurance and benefits included"
+                    ],
+                    estimated_annual_value: "approx. 2,400 AED in miles annually"
+                },
+                {
+                    card_name: "Liv Cashback Card",
+                    bank: "Emirates NBD",
+                    annual_fee: 0,
+                    min_salary: 5000,
+                    fit_score: 0.85,
+                    reasons: [
+                        "Zero annual fee - excellent value for money",
+                        "3% cashback on online shopping matches your spending pattern",
+                        "2.5% cashback on groceries for everyday savings",
+                        "Low salary requirement makes it easily accessible"
+                    ],
+                    estimated_annual_value: "approx. 1,800 AED in cashback annually"
+                },
+                {
+                    card_name: "Mashreq Cashback Card",
+                    bank: "Mashreq",
+                    annual_fee: 500,
+                    min_salary: 10000,
+                    fit_score: 0.78,
+                    reasons: [
+                        "3.5% cashback on fuel - highest rate in UAE",
+                        "3% cashback on groceries for daily expenses",
+                        "Annual fee waived with 10K monthly spend",
+                        "Great for commuters and grocery shoppers"
+                    ],
+                    estimated_annual_value: "approx. 1,500 AED in cashback annually"
+                }
+            ];
+            
+            return { recommendations: cards };
+        }
+
+        function displayRecommendations(result, profile) {
+            const summaryBox = document.getElementById('summaryBox');
+            const goalSection = document.getElementById('goalBasedSection');
+            const spendingSection = document.getElementById('spendingBasedSection');
+            const goalContainer = document.getElementById('goalCardsContainer');
+            const spendingContainer = document.getElementById('spendingCardsContainer');
+            
+            summaryBox.innerHTML = '';
+            goalContainer.innerHTML = '';
+            spendingContainer.innerHTML = '';
+            
+            const goalCards = result.goal_based || [];
+            const spendingCards = result.spending_based || [];
+            const topChoices = result.top_choices || [];
+            const followUpQuestions = result.follow_up_questions || [];
+            const hasGoals = result.has_goals || false;
+            
+            if (goalCards.length === 0 && spendingCards.length === 0) {
+                spendingContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">😕</div>
+                        <h3>No matching cards found</h3>
+                        <p>Try adjusting your criteria or contact us for personalized assistance.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Display summary
+            const totalSpend = Object.values(profile.spend).reduce((a, b) => a + b, 0);
+            summaryBox.innerHTML = `
+                <h3>📋 Your Profile Summary</h3>
+                <div class="summary-stats">
+                    <div class="stat">
+                        <div class="stat-value">${profile.salary.toLocaleString()}</div>
+                        <div class="stat-label">Monthly Salary</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">${totalSpend.toLocaleString()}</div>
+                        <div class="stat-label">Total Monthly Spend</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">${profile.goals.length || 'None'}</div>
+                        <div class="stat-label">Goals Selected</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">${goalCards.length + spendingCards.length}</div>
+                        <div class="stat-label">Cards Recommended</div>
+                    </div>
+                </div>
+            `;
+            
+            // Display top choices first if any
+            const topChoicesSection = document.getElementById('topChoicesSection');
+            const topChoicesContainer = document.getElementById('topChoicesContainer');
+            
+            if (topChoices.length > 0) {
+                topChoicesSection.style.display = 'block';
+                topChoicesContainer.innerHTML = '';
+                topChoices.forEach((card, index) => {
+                    topChoicesContainer.appendChild(createCardElement(card, index + 1, 'top-choice'));
+                });
+            } else {
+                topChoicesSection.style.display = 'none';
+            }
+            
+            // Show/hide goal section
+            if (hasGoals && goalCards.length > 0) {
+                goalSection.style.display = 'block';
+                goalCards.forEach((card, index) => {
+                    if (!topChoices.find(tc => tc.card_name === card.card_name)) {
+                        goalContainer.appendChild(createCardElement(card, index + 1, 'goal-based'));
+                    }
+                });
+            } else {
+                goalSection.style.display = 'none';
+            }
+            
+            // Display spending cards
+            spendingCards.forEach((card, index) => {
+                if (!topChoices.find(tc => tc.card_name === card.card_name)) {
+                    spendingContainer.appendChild(createCardElement(card, index + 1, 'spending-based'));
+                }
+            });
+            
+            // Display follow-up questions if any
+            if (followUpQuestions.length > 0) {
+                displayFollowUpQuestions(followUpQuestions, result.recommendations);
+            }
+        }
+        
+        function createCardElement(card, rank, type) {
+            const cardDiv = document.createElement('div');
+            let cardClass = `card-result ${type}`;
+            
+            // Special styling for top choices
+            if (type === 'top-choice') {
+                cardClass += ' top-choice';
+            }
+            
+            cardDiv.className = cardClass;
+            
+            const logoHtml = `<div class="card-logo" style="background: ${getCardColor(card.card_name)}; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 0.9rem;">${card.card_name.substring(0, 2).toUpperCase()}</div>`;
+            
+            // Extract matched goals from reasons
+            const goalBadges = type === 'goal-based' || type === 'top-choice' ? extractGoalBadges(card) : '';
+            
+            // Top choice badge
+            const topChoiceBadge = type === 'top-choice' ? '<div class="top-choice-badge">🏆 Perfect Match</div>' : '';
+            
+            cardDiv.innerHTML = `
+                <div class="card-header">
+                    <h3>${logoHtml}<span>${card.card_name}</span></h3>
+                    <div class="bank">${card.bank || 'UAE Bank'}</div>
+                </div>
+                ${topChoiceBadge}
+                ${goalBadges}
+                <span class="fit-score">Match Score: ${(card.fit_score * 100).toFixed(0)}%</span>
+                
+                <div class="card-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Annual Fee</div>
+                        <div class="detail-value">${card.annual_fee ? card.annual_fee + ' AED' : 'FREE'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Min. Salary</div>
+                        <div class="detail-value">${card.min_salary ? card.min_salary.toLocaleString() + ' AED' : 'N/A'}</div>
+                    </div>
+                </div>
+                
+                <strong style="color: #667eea; display: block; margin-top: 1rem;">${type === 'top-choice' ? '🏆 Perfect for your goals AND spending:' : type === 'goal-based' ? '🎯 Why this helps your goals:' : '💰 Why this matches your spending:'}</strong>
+                <ul class="reasons">
+                    ${card.reasons.map(reason => `<li>${reason}</li>`).join('')}
+                </ul>
+                
+                <div class="value-highlight">
+                    <strong>💰 Estimated Value:</strong> ${card.estimated_annual_value}
+                </div>
+                ${card.apply_url ? `<a href="${card.apply_url}" target="_blank" class="apply-btn">→ Apply Now</a>` : ''}
+            `;
+            return cardDiv;
+        }
+        
+        function displayFollowUpQuestions(questions, recommendations) {
+            const resultsDiv = document.getElementById('results');
+            
+            const questionsSection = document.createElement('div');
+            questionsSection.className = 'follow-up-section';
+            questionsSection.innerHTML = `
+                <div class="section-title" style="margin-top: 2rem;">🤔 Refine Your Recommendations</div>
+                <p style="color: #666; margin-bottom: 1.5rem;">Help us narrow down your options with these preferences:</p>
+                <div id="filterForm"></div>
+            `;
+            
+            const chatSection = resultsDiv.querySelector('.chat-section');
+            resultsDiv.insertBefore(questionsSection, chatSection);
+            
+            const container = document.getElementById('filterForm');
+            
+            // Create structured filter form
+            const filterForm = document.createElement('div');
+            filterForm.className = 'filter-form';
+            filterForm.innerHTML = `
+                <h4>Filter Preferences</h4>
+                <div class="filter-input-group">
+                    <label for="annualFeeFilter">Annual Fee Preference</label>
+                    <select id="annualFeeFilter">
+                        <option value="">No preference</option>
+                        <option value="no_fee">No annual fee preferred</option>
+                        <option value="low_fee">Low fee (under 500 AED)</option>
+                        <option value="any_fee">Any fee acceptable</option>
+                    </select>
+                </div>
+                <div class="filter-input-group">
+                    <label for="rewardTypeFilter">Primary Reward Type</label>
+                    <select id="rewardTypeFilter">
+                        <option value="">No preference</option>
+                        <option value="cashback">Cashback rewards</option>
+                        <option value="miles">Travel miles/points</option>
+                        <option value="mixed">Mixed rewards</option>
+                    </select>
+                </div>
+                <div class="filter-input-group">
+                    <label for="spendingFocusFilter">Spending Focus</label>
+                    <select id="spendingFocusFilter">
+                        <option value="">No preference</option>
+                        <option value="travel">Travel focused</option>
+                        <option value="dining">Dining focused</option>
+                        <option value="groceries">Groceries focused</option>
+                        <option value="online">Online shopping focused</option>
+                        <option value="fuel">Fuel focused</option>
+                        <option value="general">General spending</option>
+                    </select>
+                </div>
+                <div class="filter-input-group">
+                    <label for="premiumBenefitsFilter">Premium Benefits</label>
+                    <select id="premiumBenefitsFilter">
+                        <option value="">No preference</option>
+                        <option value="yes">Want premium benefits (lounge, concierge)</option>
+                        <option value="no">Basic benefits sufficient</option>
+                    </select>
+                </div>
+                <button class="filter-btn" onclick="applyFilters()">Apply Filters</button>
+            `;
+            
+            container.appendChild(filterForm);
+        }
+        
+        let currentRecommendations = [];
+        
+        function applyFilters() {
+            const annualFee = document.getElementById('annualFeeFilter').value;
+            const rewardType = document.getElementById('rewardTypeFilter').value;
+            const spendingFocus = document.getElementById('spendingFocusFilter').value;
+            const premiumBenefits = document.getElementById('premiumBenefitsFilter').value;
+            
+            const filters = {
+                annual_fee: annualFee,
+                reward_type: rewardType,
+                spending_focus: spendingFocus,
+                premium_benefits: premiumBenefits
+            };
+            
+            // Filter recommendations based on structured inputs
+            const filteredCards = applyStructuredFilters(currentRecommendations, filters);
+            
+            // Update display with filtered results
+            const result = {
+                recommendations: filteredCards,
+                goal_based: filteredCards.filter(c => c.recommendation_type === 'goal'),
+                spending_based: filteredCards.filter(c => c.recommendation_type === 'spending'),
+                top_choices: filteredCards.filter(c => c.is_top_choice),
+                has_goals: currentProfile.goals.length > 0,
+                follow_up_questions: []
+            };
+            
+            // Remove filter section
+            const filterSection = document.querySelector('.follow-up-section');
+            if (filterSection) filterSection.remove();
+            
+            // Re-display with filtered results
+            displayRecommendations(result, currentProfile);
+            
+            // Show success message
+            const appliedFilters = Object.entries(filters).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join(', ');
+            const successMsg = document.createElement('div');
+            successMsg.className = 'filter-success';
+            successMsg.innerHTML = `
+                <div style="background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                    ✅ Filtered to ${filteredCards.length} cards based on: ${appliedFilters || 'your preferences'}
+                </div>
+            `;
+            document.getElementById('summaryBox').appendChild(successMsg);
+        }
+        
+        function applyStructuredFilters(recommendations, filters) {
+            let filtered = [...recommendations];
+            
+            // Annual fee filter
+            if (filters.annual_fee) {
+                if (filters.annual_fee === 'no_fee') {
+                    const noFeeCards = filtered.filter(r => r.annual_fee === 0);
+                    if (noFeeCards.length > 0) filtered = noFeeCards;
+                } else if (filters.annual_fee === 'low_fee') {
+                    const lowFeeCards = filtered.filter(r => r.annual_fee <= 500);
+                    if (lowFeeCards.length > 0) filtered = lowFeeCards;
+                }
+            }
+            
+            // Reward type filter
+            if (filters.reward_type) {
+                if (filters.reward_type === 'cashback') {
+                    const cashbackCards = filtered.filter(r => r.card_name.toLowerCase().includes('cashback') || 
+                        (r.best_for && r.best_for.includes('cashback')));
+                    if (cashbackCards.length > 0) filtered = cashbackCards;
+                } else if (filters.reward_type === 'miles') {
+                    const milesCards = filtered.filter(r => r.card_name.toLowerCase().includes('miles') || 
+                        r.card_name.toLowerCase().includes('skywards') || 
+                        (r.best_for && r.best_for.includes('travel')));
+                    if (milesCards.length > 0) filtered = milesCards;
+                }
+            }
+            
+            // Spending focus filter
+            if (filters.spending_focus) {
+                const focusMap = {
+                    'travel': ['travel', 'miles', 'skywards'],
+                    'dining': ['dining', 'restaurant'],
+                    'groceries': ['groceries', 'supermarket'],
+                    'online': ['online', 'shopping'],
+                    'fuel': ['fuel', 'petrol']
+                };
+                
+                const keywords = focusMap[filters.spending_focus] || [];
+                const focusCards = filtered.filter(r => 
+                    keywords.some(keyword => 
+                        r.card_name.toLowerCase().includes(keyword) ||
+                        (r.best_for && r.best_for.includes(keyword))
+                    )
+                );
+                if (focusCards.length > 0) filtered = focusCards;
+            }
+            
+            // Premium benefits filter
+            if (filters.premium_benefits) {
+                if (filters.premium_benefits === 'yes') {
+                    const premiumCards = filtered.filter(r => r.annual_fee > 500 || 
+                        (r.best_for && (r.best_for.includes('premium') || r.best_for.includes('airport_lounge'))));
+                    if (premiumCards.length > 0) filtered = premiumCards;
+                } else if (filters.premium_benefits === 'no') {
+                    const basicCards = filtered.filter(r => r.annual_fee <= 500);
+                    if (basicCards.length > 0) filtered = basicCards;
+                }
+            }
+            
+            // Always return at least top 3 cards
+            return filtered.length > 0 ? filtered : recommendations.slice(0, 3);
+        }
+        
+        function extractGoalBadges(card) {
+            // Use matched_goals from backend if available
+            if (card.matched_goals && card.matched_goals.length > 0) {
+                const goalIcons = {
+                    'travel': '✈️',
+                    'miles': '✈️',
+                    'airport_lounge': '🛫',
+                    'cashback': '💵',
+                    'dining': '🍽️',
+                    'premium': '⭐',
+                    'no_fee': '🆓',
+                    'fuel': '⛽',
+                    'online': '🛒'
+                };
+                
+                const badges = card.matched_goals.map(goal => {
+                    const icon = goalIcons[goal.toLowerCase()] || '✓';
+                    return `${icon} ${goal.replace('_', ' ')}`;
+                });
+                
+                const totalGoals = card.total_goals || card.matched_goals.length;
+                const matchText = totalGoals > card.matched_goals.length 
+                    ? `<small style="color: #666; font-weight: normal;"> (${card.matched_goals.length}/${totalGoals} goals)</small>`
+                    : '';
+                
+                return `<div class="goal-badges">${badges.map(b => `<span class="goal-badge-tag">${b}</span>`).join('')}${matchText}</div>`;
+            }
+            
+            return '';
+        }
+        
+        function getCardColor(cardName) {
+            const colors = {
+                'Emirates': '#d71921',
+                'Amazon': '#FF9900',
+                'Noon': '#FEEE00',
+                'Liv': '#00D9C0',
+                'WIO': '#6C5CE7',
+                'SHARE': '#E91E63',
+                'Mashreq': '#00539F',
+                'ADCB': '#003087',
+                'Etihad': '#866D4B',
+                'RAKBank': '#C8102E',
+                'Lulu': '#E31837',
+                'Landmark': '#FF6B35',
+                'Deem': '#00A651'
+            };
+            
+            for (const [key, color] of Object.entries(colors)) {
+                if (cardName.includes(key)) return color;
+            }
+            return '#667eea';
+        }
+
+        function resetForm() {
+            document.getElementById('profileForm').reset();
+            document.querySelectorAll('.goal-tag').forEach(tag => tag.classList.remove('selected'));
+            document.querySelectorAll('.service-tag.selected').forEach(tag => {
+                tag.classList.remove('selected');
+                tag.removeAttribute('data-usage');
+            });
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('chatMessages').innerHTML = `
+                <div class="chat-message agent">
+                    👋 Hi! I'm here to help you find the perfect credit card. Feel free to ask me anything like:
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li>"What if my salary increases to 20K?"</li>
+                        <li>"Compare Emirates Skywards vs ADCB Traveller"</li>
+                        <li>"Show me cards with no annual fee"</li>
+                    </ul>
+                </div>
+            `;
+            document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        let currentProfile = null;
+        
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const messagesDiv = document.getElementById('chatMessages');
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-message user';
+            userMsg.textContent = message;
+            messagesDiv.appendChild(userMsg);
+            input.value = '';
+            
+            // Show typing indicator
+            const typingMsg = document.createElement('div');
+            typingMsg.className = 'chat-message agent';
+            typingMsg.innerHTML = '💭 Thinking...';
+            messagesDiv.appendChild(typingMsg);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            try {
+                console.log('Sending chat message:', message);
+                const response = await fetch('http://localhost:5001/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message, profile: currentProfile })
+                });
+                
+                console.log('Chat response status:', response.status);
+                const result = await response.json();
+                console.log('Chat result:', result);
+                typingMsg.innerHTML = result.response || 'I can help you with that! Could you provide more details?';
+            } catch (error) {
+                console.error('Chat error:', error);
+                typingMsg.innerHTML = '⚠️ Sorry, I\'m having trouble connecting. Please try again.';
+            }
+            
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        // Questionnaire Modal Logic
+        const insights = [
+            { text: "Customers with similar spending patterns saved an average of 12,000 AED/year by switching to rewards-focused cards", emoji: "💰" },
+            { text: "Cards with co-branded partnerships can offer up to 6% cashback at specific merchants you already use", emoji: "🤔" },
+            { text: "Premium cards with annual fees often pay for themselves if you travel internationally 3+ times per year", emoji: "✨" },
+            { text: "Zero annual fee cards are perfect for building credit history while earning 2-3% cashback on everyday purchases", emoji: "💡" },
+            { text: "Travel credit cards can save you up to 15,000 AED annually on flights, hotels, and airport lounge access", emoji: "✈️" },
+            { text: "Cashback cards work best when you spend at least 5,000 AED monthly across all categories", emoji: "🎯" },
+            { text: "Co-branded grocery cards offer 5-6% rewards but only if you shop at partner stores regularly", emoji: "🛒" },
+            { text: "Premium cards with 1,000+ AED fees include benefits worth 3,000-5,000 AED if fully utilized", emoji: "⭐" },
+            { text: "Online shopping cards can earn you 3-5% cashback on Amazon, Noon, and international platforms", emoji: "🛍️" },
+            { text: "Fuel cards save frequent drivers 500-800 AED yearly with 3-4% cashback at ADNOC, ENOC, and Emarat", emoji: "⛽" },
+            { text: "Dining rewards cards offer 3-5% cashback at restaurants, cafes, and food delivery apps", emoji: "🍽️" },
+            { text: "Cards with airport lounge access are worth it if you travel 4+ times per year internationally", emoji: "🛫" },
+            { text: "Balance transfer cards can save you 2-3% monthly interest if you have existing credit card debt", emoji: "💳" },
+            { text: "Contactless payment cards reduce transaction time by 60% and are accepted at 95% of UAE merchants", emoji: "⚡" },
+            { text: "Digital-first cards like Liv and WIO offer instant approval and zero paperwork for millennials", emoji: "📱" },
+            { text: "Family supplementary cards help track household spending and earn rewards 2x faster", emoji: "👨👩👧👦" },
+            { text: "Cards with purchase protection cover theft and damage for 90-180 days on items over 500 AED", emoji: "🛡️" },
+            { text: "Travel insurance included with premium cards covers medical emergencies up to 500,000 AED abroad", emoji: "🏥" },
+            { text: "Concierge services on elite cards can book sold-out restaurants and exclusive event tickets", emoji: "🎭" },
+            { text: "Reward points typically expire after 2-3 years, so redeem them regularly for maximum value", emoji: "⏰" },
+            { text: "Combining 2-3 cards strategically can maximize rewards across different spending categories", emoji: "🎲" },
+            { text: "Metal cards aren't just for show - they signal premium benefits and higher credit limits", emoji: "🏆" },
+            { text: "Salary transfer requirements can be waived if you maintain a minimum balance of 10,000-25,000 AED", emoji: "🏦" },
+            { text: "Credit utilization below 30% improves your credit score and increases approval chances for premium cards", emoji: "📊" },
+            { text: "International transaction fees of 2-3% add up quickly - look for cards with zero forex markup", emoji: "🌍" }
+        ];
+        
+        let currentQIndex = 0;
+        let qAnswers = {};
+        let selectedQAnswers = [];
+        let currentQuestions = [];
+        let resolveQuestionnaire = null;
+        
+        function showQuestionnaireModal(questions) {
+            return new Promise((resolve) => {
+                currentQuestions = questions;
+                currentQIndex = 0;
+                qAnswers = {};
+                selectedQAnswers = [];
+                resolveQuestionnaire = resolve;
+                
+                document.getElementById('questionnaireOverlay').classList.add('show');
+                renderQuestionQ();
+            });
+        }
+        
+        function renderQuestionQ() {
+            const question = currentQuestions[currentQIndex];
+            const container = document.getElementById('questionContainerQ');
+            
+            const progress = ((currentQIndex + 1) / currentQuestions.length) * 100;
+            document.getElementById('progressFillQ').style.width = progress + '%';
+            document.getElementById('totalQuestionsQ').textContent = currentQuestions.length;
+            
+            const contextHint = question.type === 'multi' ? ' (Select all that apply)' : '';
+            
+            container.innerHTML = `
+                <div class="question-text">${question.text}</div>
+                <div class="question-context">${question.context}${contextHint}</div>
+                <div class="answer-options">
+                    ${question.options.map(opt => `
+                        <button class="answer-option" data-value="${opt.value}">
+                            <span class="opt-icon">${opt.icon}</span>
+                            <span class="opt-text">${opt.label}</span>
+                            ${question.type === 'ranking' ? '<span class="rank-badge"></span>' : '<span class="checkmark">✓</span>'}
+                        </button>
+                    `).join('')}
+                </div>
+                ${question.allow_custom ? `
+                    <div class="custom-input-field" style="display: none;" id="customInputField">
+                        <label>📝 Please specify other expenses:</label>
+                        <input type="text" id="customInputText" placeholder="e.g., Pet care, hobbies, home maintenance..." />
+                    </div>
+                ` : ''}
+            `;
+            
+            container.querySelectorAll('.answer-option').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectAnswerQ(btn, btn.dataset.value, question.type);
+                    
+                    // Show custom input if "other" is selected
+                    if (question.allow_custom && btn.dataset.value === 'other') {
+                        const customField = document.getElementById('customInputField');
+                        if (btn.classList.contains('selected')) {
+                            customField.style.display = 'block';
+                        } else {
+                            customField.style.display = 'none';
+                            document.getElementById('customInputText').value = '';
+                        }
+                    }
+                });
+            });
+            
+            document.getElementById('backBtnQ').style.display = currentQIndex > 0 ? 'block' : 'none';
+            document.getElementById('nextBtnQ').textContent = currentQIndex === currentQuestions.length - 1 ? 'Finish' : 'Next →';
+            document.getElementById('nextBtnQ').disabled = true;
+            
+            if (qAnswers[question.id]) {
+                if (question.type === 'ranking') {
+                    Object.entries(qAnswers[question.id]).forEach(([val, rank]) => {
+                        const btn = container.querySelector(`[data-value="${val}"]`);
+                        if (btn) {
+                            btn.classList.add('ranked');
+                            btn.querySelector('.rank-badge').textContent = rank;
+                            selectedQAnswers.push(val);
+                        }
+                    });
+                } else {
+                    const saved = Array.isArray(qAnswers[question.id]) ? qAnswers[question.id] : [qAnswers[question.id]];
+                    saved.forEach(val => {
+                        const btn = container.querySelector(`[data-value="${val}"]`);
+                        if (btn) {
+                            btn.classList.add('selected');
+                            if (!selectedQAnswers.includes(val)) selectedQAnswers.push(val);
+                        }
+                    });
+                }
+                document.getElementById('nextBtnQ').disabled = false;
+            }
+        }
+        
+        function selectAnswerQ(button, value, type) {
+            if (type === 'ranking') {
+                if (button.classList.contains('ranked')) {
+                    button.classList.remove('ranked');
+                    const idx = selectedQAnswers.indexOf(value);
+                    if (idx > -1) selectedQAnswers.splice(idx, 1);
+                } else {
+                    const nextRank = selectedQAnswers.length + 1;
+                    if (nextRank <= 4) {
+                        button.classList.add('ranked');
+                        button.querySelector('.rank-badge').textContent = nextRank;
+                        selectedQAnswers.push(value);
+                    }
+                }
+                document.getElementById('nextBtnQ').disabled = selectedQAnswers.length === 0;
+            } else if (type === 'multi') {
+                button.classList.toggle('selected');
+                const idx = selectedQAnswers.indexOf(value);
+                if (idx > -1) {
+                    selectedQAnswers.splice(idx, 1);
+                } else {
+                    selectedQAnswers.push(value);
+                }
+                document.getElementById('nextBtnQ').disabled = selectedQAnswers.length === 0;
+            } else {
+                document.querySelectorAll('.answer-option').forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+                selectedQAnswers = [value];
+                document.getElementById('nextBtnQ').disabled = false;
+            }
+        }
+        
+        function nextQuestionQ() {
+            if (selectedQAnswers.length === 0) return;
+            
+            const question = currentQuestions[currentQIndex];
+            
+            // Collect custom input if provided
+            let customText = '';
+            if (question.allow_custom) {
+                const customInput = document.getElementById('customInputText');
+                if (customInput && customInput.value.trim()) {
+                    customText = customInput.value.trim();
+                }
+            }
+            
+            if (question.type === 'ranking') {
+                const rankings = {};
+                document.querySelectorAll('.answer-option.ranked').forEach(btn => {
+                    rankings[btn.dataset.value] = parseInt(btn.querySelector('.rank-badge').textContent);
+                });
+                qAnswers[question.id] = rankings;
+            } else {
+                const answer = question.type === 'multi' ? selectedQAnswers : selectedQAnswers[0];
+                qAnswers[question.id] = answer;
+                
+                // Add custom text if provided
+                if (customText) {
+                    qAnswers[question.id + '_custom'] = customText;
+                }
+            }
+            selectedQAnswers = [];
+            
+            if (currentQIndex < currentQuestions.length - 1) {
+                currentQIndex++;
+                const container = document.getElementById('questionContainerQ');
+                container.classList.add('exit');
+                setTimeout(() => {
+                    container.classList.remove('exit');
+                    renderQuestionQ();
+                }, 300);
+            } else {
+                finishQuestionnaireQ();
+            }
+        }
+        
+        function previousQuestionQ() {
+            if (currentQIndex > 0) {
+                currentQIndex--;
+                selectedQAnswers = [];
+                renderQuestionQ();
+            }
+        }
+        
+        function skipQuestionQ() {
+            if (currentQIndex < currentQuestions.length - 1) {
+                currentQIndex++;
+                selectedQAnswers = [];
+                renderQuestionQ();
+            } else {
+                finishQuestionnaireQ();
+            }
+        }
+        
+        function finishQuestionnaireQ() {
+            console.log('Finishing questionnaire...');
+            document.getElementById('questionContainerQ').style.display = 'none';
+            document.querySelector('.skip-hint').style.display = 'none';
+            document.querySelector('.modal-footer-q').style.display = 'none';
+            
+            const insightCard = document.getElementById('insightCardQ');
+            insightCard.classList.add('show');
+            
+            const randomInsight = insights[Math.floor(Math.random() * insights.length)];
+            document.getElementById('insightContentQ').innerHTML = `${randomInsight.emoji} ${randomInsight.text}`;
+            
+            // Resolve immediately so API call can proceed
+            if (resolveQuestionnaire) {
+                console.log('Resolving questionnaire with answers:', qAnswers);
+                resolveQuestionnaire(qAnswers);
+                resolveQuestionnaire = null;
+            }
+        }
+        
+        function closeQuestionnaireQ() {
+            console.log('Closing questionnaire modal...');
+            document.getElementById('questionnaireOverlay').classList.remove('show');
+            
+            setTimeout(() => {
+                document.getElementById('questionContainerQ').style.display = 'block';
+                document.querySelector('.skip-hint').style.display = 'block';
+                document.querySelector('.modal-footer-q').style.display = 'flex';
+                document.getElementById('insightCardQ').classList.remove('show');
+            }, 300);
+            
+            if (resolveQuestionnaire) {
+                console.log('Resolving questionnaire promise with answers:', qAnswers);
+                resolveQuestionnaire(qAnswers);
+                resolveQuestionnaire = null;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "title": "credit-card-recommender-uae",
+  "description": "credit-card-recommender-uae - Created with Sleipnir",
+  "author": "shantkre",
+  "team": "AWS Solutions - UX Design",
+  "platforms": [
+    "Desktop"
+  ],
+  "prototypeFiles": "dist"
+}

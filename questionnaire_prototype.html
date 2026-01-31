@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Modal Prototype</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; padding: 2rem; }
+        
+        .demo-container { max-width: 600px; margin: 0 auto; }
+        .demo-btn { padding: 1rem 2rem; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; }
+        .demo-btn:hover { background: #5568d3; }
+        
+        .questionnaire-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; }
+        .questionnaire-overlay.show { display: flex; animation: fadeIn 0.3s; }
+        
+        .questionnaire-modal { background: white; border-radius: 16px; width: 90%; max-width: 550px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.4s; }
+        
+        .modal-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        .modal-header h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .modal-header p { opacity: 0.9; font-size: 0.95rem; }
+        
+        .progress-bar { height: 4px; background: rgba(255,255,255,0.3); margin-top: 1rem; border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; background: white; transition: width 0.4s ease; }
+        
+        .modal-body { padding: 2rem; flex: 1; overflow-y: auto; }
+        
+        .question-card { animation: slideInRight 0.4s; }
+        .question-card.exit { animation: slideOutLeft 0.3s; }
+        
+        .question-text { font-size: 1.2rem; color: #333; margin-bottom: 0.5rem; font-weight: 600; }
+        .question-context { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+        
+        .answer-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .answer-option { padding: 1rem 1.5rem; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.3s; background: white; text-align: left; font-size: 1rem; display: flex; align-items: center; gap: 1rem; position: relative; }
+        .answer-option:hover { border-color: #667eea; background: #f5f7ff; transform: translateX(5px); }
+        .answer-option.selected { border-color: #667eea; background: #667eea; color: white; }
+        .answer-option.ranked { border-color: #FFD700; background: #FFF8DC; }
+        .answer-option .checkmark { display: none; margin-left: auto; font-size: 1.2rem; }
+        .answer-option.selected .checkmark { display: block; }
+        .answer-option .rank-badge { display: none; position: absolute; top: -8px; right: -8px; background: #FFD700; color: #333; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; font-size: 0.9rem; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .answer-option.ranked .rank-badge { display: flex; }
+        .answer-option .icon { font-size: 1.5rem; }
+        .answer-option .text { flex: 1; }
+        
+        .modal-footer { padding: 1.5rem 2rem; border-top: 1px solid #e0e0e0; display: flex; gap: 1rem; justify-content: space-between; background: white; flex-shrink: 0; }
+        .btn-secondary { padding: 0.8rem 1.5rem; background: white; color: #667eea; border: 2px solid #667eea; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-secondary:hover { background: #f5f7ff; }
+        .btn-primary { padding: 0.8rem 2rem; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-primary:hover { background: #5568d3; }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .skip-hint { font-size: 0.85rem; color: #999; text-align: center; margin-top: 1rem; }
+        
+        .insight-card { display: none; padding: 1.5rem; background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 12px; margin-top: 1rem; border-left: 4px solid #667eea; animation: fadeIn 0.5s; }
+        .insight-card.show { display: block; }
+        .insight-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .insight-card .title { font-weight: 600; color: #667eea; margin-bottom: 0.5rem; }
+        .insight-card .content { color: #666; line-height: 1.5; font-size: 0.95rem; }
+        
+        .loading-progress { margin-top: 1rem; }
+        .loading-bar { height: 6px; background: #e0e0e0; border-radius: 3px; overflow: hidden; }
+        .loading-bar-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); animation: loading 2s ease-in-out infinite; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideInRight { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-30px); opacity: 0; } }
+        @keyframes loading { 0%, 100% { transform: translateX(-100%); } 50% { transform: translateX(100%); } }
+        
+        .results { margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .results h3 { color: #667eea; margin-bottom: 1rem; }
+        .results pre { background: #f5f7fa; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 style="color: #667eea; margin-bottom: 1rem;">💳 Questionnaire Modal Prototype</h1>
+        <p style="color: #666; margin-bottom: 2rem;">Multi-select, single-select, and ranking questions with random insights.</p>
+        
+        <button class="demo-btn" onclick="startQuestionnaire()">Start Questionnaire Demo</button>
+        
+        <div id="results" class="results" style="display: none;">
+            <h3>📊 Collected Answers:</h3>
+            <pre id="answersOutput"></pre>
+        </div>
+    </div>
+
+    <div id="questionnaireOverlay" class="questionnaire-overlay">
+        <div class="questionnaire-modal">
+            <div class="modal-header">
+                <h2>🎯 Help Us Personalize Your Recommendations</h2>
+                <p>Answer <span id="totalQuestions">3</span> quick questions for better card matches</p>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 33%"></div>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <div id="questionContainer" class="question-card"></div>
+                
+                <div class="skip-hint">
+                    💡 Skip if unsure - we'll still give you great recommendations
+                </div>
+                
+                <div id="insightCard" class="insight-card">
+                    <div class="icon">✨</div>
+                    <div class="title">Did you know?</div>
+                    <div class="content" id="insightContent"></div>
+                    <div class="loading-progress">
+                        <div class="loading-bar">
+                            <div class="loading-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="skipQuestion()">Skip</button>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="backBtn" class="btn-secondary" onclick="previousQuestion()" style="display: none;">← Back</button>
+                    <button id="nextBtn" class="btn-primary" onclick="nextQuestion()" disabled>Next →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sampleQuestions = [
+            {
+                id: 'online_shopping',
+                text: 'We noticed significant online shopping expenses (3,500 AED/month)',
+                context: 'Where do you shop most frequently?',
+                type: 'multi',
+                options: [
+                    { value: 'amazon', label: 'Amazon.ae', icon: '📦' },
+                    { value: 'noon', label: 'Noon', icon: '🛍️' },
+                    { value: 'international', label: 'International sites', icon: '🌍' },
+                    { value: 'mixed', label: 'Mix of platforms', icon: '🔀' }
+                ]
+            },
+            {
+                id: 'travel_frequency',
+                text: 'You spend 4,000 AED/month on international travel',
+                context: 'How often do you travel internationally?',
+                type: 'single',
+                options: [
+                    { value: 'monthly', label: 'Monthly or more', icon: '✈️' },
+                    { value: 'quarterly', label: 'Every 2-3 months', icon: '🗓️' },
+                    { value: 'occasional', label: 'Few times a year', icon: '🏖️' },
+                    { value: 'rare', label: 'Rarely', icon: '🏠' }
+                ]
+            },
+            {
+                id: 'priority',
+                text: 'What matters most to you in a credit card?',
+                context: 'Rank your priorities (1 = most important)',
+                type: 'ranking',
+                options: [
+                    { value: 'cashback', label: 'Maximum cashback', icon: '💰' },
+                    { value: 'travel_rewards', label: 'Travel miles & perks', icon: '🎫' },
+                    { value: 'no_fee', label: 'No annual fee', icon: '🆓' },
+                    { value: 'premium', label: 'Premium benefits', icon: '⭐' }
+                ]
+            }
+        ];
+
+        const insights = [
+            { text: "Customers with similar spending patterns saved an average of 12,000 AED/year by switching to rewards-focused cards", emoji: "💰" },
+            { text: "Cards with co-branded partnerships can offer up to 6% cashback at specific merchants you already use", emoji: "🤔" },
+            { text: "Premium cards with annual fees often pay for themselves if you travel internationally 3+ times per year", emoji: "✨" },
+            { text: "Zero annual fee cards are perfect for building credit history while earning 2-3% cashback on everyday purchases", emoji: "💡" },
+            { text: "Travel credit cards can save you up to 15,000 AED annually on flights, hotels, and airport lounge access", emoji: "✈️" },
+            { text: "Cashback cards work best when you spend at least 5,000 AED monthly across all categories", emoji: "🎯" },
+            { text: "Co-branded grocery cards offer 5-6% rewards but only if you shop at partner stores regularly", emoji: "🛒" },
+            { text: "Premium cards with 1,000+ AED fees include benefits worth 3,000-5,000 AED if fully utilized", emoji: "⭐" },
+            { text: "Online shopping cards can earn you 3-5% cashback on Amazon, Noon, and international platforms", emoji: "🛍️" },
+            { text: "Fuel cards save frequent drivers 500-800 AED yearly with 3-4% cashback at ADNOC, ENOC, and Emarat", emoji: "⛽" },
+            { text: "Dining rewards cards offer 3-5% cashback at restaurants, cafes, and food delivery apps", emoji: "🍽️" },
+            { text: "Cards with airport lounge access are worth it if you travel 4+ times per year internationally", emoji: "🛫" },
+            { text: "Balance transfer cards can save you 2-3% monthly interest if you have existing credit card debt", emoji: "💳" },
+            { text: "Contactless payment cards reduce transaction time by 60% and are accepted at 95% of UAE merchants", emoji: "⚡" },
+            { text: "Digital-first cards like Liv and WIO offer instant approval and zero paperwork for millennials", emoji: "📱" },
+            { text: "Family supplementary cards help track household spending and earn rewards 2x faster", emoji: "👨‍👩‍👧‍👦" },
+            { text: "Cards with purchase protection cover theft and damage for 90-180 days on items over 500 AED", emoji: "🛡️" },
+            { text: "Travel insurance included with premium cards covers medical emergencies up to 500,000 AED abroad", emoji: "🏥" },
+            { text: "Concierge services on elite cards can book sold-out restaurants and exclusive event tickets", emoji: "🎭" },
+            { text: "Reward points typically expire after 2-3 years, so redeem them regularly for maximum value", emoji: "⏰" },
+            { text: "Combining 2-3 cards strategically can maximize rewards across different spending categories", emoji: "🎲" },
+            { text: "Metal cards aren't just for show - they signal premium benefits and higher credit limits", emoji: "🏆" },
+            { text: "Salary transfer requirements can be waived if you maintain a minimum balance of 10,000-25,000 AED", emoji: "🏦" },
+            { text: "Credit utilization below 30% improves your credit score and increases approval chances for premium cards", emoji: "📊" },
+            { text: "International transaction fees of 2-3% add up quickly - look for cards with zero forex markup", emoji: "🌍" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let selectedAnswers = [];
+
+        function startQuestionnaire() {
+            currentQuestionIndex = 0;
+            answers = {};
+            selectedAnswers = [];
+            document.getElementById('questionnaireOverlay').classList.add('show');
+            document.getElementById('results').style.display = 'none';
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const question = sampleQuestions[currentQuestionIndex];
+            const container = document.getElementById('questionContainer');
+            
+            const progress = ((currentQuestionIndex + 1) / sampleQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('totalQuestions').textContent = sampleQuestions.length;
+            
+            const contextHint = question.type === 'multi' ? ' (Select all that apply)' : '';
+            
+            container.innerHTML = `
+                <div class="question-text">${question.text}</div>
+                <div class="question-context">${question.context}${contextHint}</div>
+                <div class="answer-options">
+                    ${question.options.map(opt => `
+                        <button class="answer-option" data-value="${opt.value}">
+                            <span class="icon">${opt.icon}</span>
+                            <span class="text">${opt.label}</span>
+                            ${question.type === 'ranking' ? '<span class="rank-badge"></span>' : '<span class="checkmark">✓</span>'}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.querySelectorAll('.answer-option').forEach(btn => {
+                btn.addEventListener('click', () => selectAnswer(btn, btn.dataset.value, question.type));
+            });
+            
+            document.getElementById('backBtn').style.display = currentQuestionIndex > 0 ? 'block' : 'none';
+            document.getElementById('nextBtn').textContent = currentQuestionIndex === sampleQuestions.length - 1 ? 'Finish' : 'Next →';
+            document.getElementById('nextBtn').disabled = true;
+            
+            if (answers[question.id]) {
+                if (question.type === 'ranking') {
+                    Object.entries(answers[question.id]).forEach(([val, rank]) => {
+                        const btn = container.querySelector(`[data-value="${val}"]`);
+                        if (btn) {
+                            btn.classList.add('ranked');
+                            btn.querySelector('.rank-badge').textContent = rank;
+                            selectedAnswers.push(val);
+                        }
+                    });
+                } else {
+                    const saved = Array.isArray(answers[question.id]) ? answers[question.id] : [answers[question.id]];
+                    saved.forEach(val => {
+                        const btn = container.querySelector(`[data-value="${val}"]`);
+                        if (btn) {
+                            btn.classList.add('selected');
+                            if (!selectedAnswers.includes(val)) selectedAnswers.push(val);
+                        }
+                    });
+                }
+                document.getElementById('nextBtn').disabled = false;
+            }
+        }
+
+        function selectAnswer(button, value, type) {
+            if (type === 'ranking') {
+                if (button.classList.contains('ranked')) {
+                    button.classList.remove('ranked');
+                    const idx = selectedAnswers.indexOf(value);
+                    if (idx > -1) selectedAnswers.splice(idx, 1);
+                } else {
+                    const nextRank = selectedAnswers.length + 1;
+                    if (nextRank <= 4) {
+                        button.classList.add('ranked');
+                        button.querySelector('.rank-badge').textContent = nextRank;
+                        selectedAnswers.push(value);
+                    }
+                }
+                document.getElementById('nextBtn').disabled = selectedAnswers.length === 0;
+            } else if (type === 'multi') {
+                button.classList.toggle('selected');
+                const idx = selectedAnswers.indexOf(value);
+                if (idx > -1) {
+                    selectedAnswers.splice(idx, 1);
+                } else {
+                    selectedAnswers.push(value);
+                }
+                document.getElementById('nextBtn').disabled = selectedAnswers.length === 0;
+            } else {
+                document.querySelectorAll('.answer-option').forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+                selectedAnswers = [value];
+                document.getElementById('nextBtn').disabled = false;
+            }
+        }
+
+        function nextQuestion() {
+            if (selectedAnswers.length === 0) return;
+            
+            const question = sampleQuestions[currentQuestionIndex];
+            if (question.type === 'ranking') {
+                const rankings = {};
+                document.querySelectorAll('.answer-option.ranked').forEach(btn => {
+                    rankings[btn.dataset.value] = parseInt(btn.querySelector('.rank-badge').textContent);
+                });
+                answers[question.id] = rankings;
+            } else {
+                answers[question.id] = question.type === 'multi' ? selectedAnswers : selectedAnswers[0];
+            }
+            selectedAnswers = [];
+            
+            if (currentQuestionIndex < sampleQuestions.length - 1) {
+                currentQuestionIndex++;
+                const container = document.getElementById('questionContainer');
+                container.classList.add('exit');
+                setTimeout(() => {
+                    container.classList.remove('exit');
+                    renderQuestion();
+                }, 300);
+            } else {
+                finishQuestionnaire();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                selectedAnswers = [];
+                renderQuestion();
+            }
+        }
+
+        function skipQuestion() {
+            if (currentQuestionIndex < sampleQuestions.length - 1) {
+                currentQuestionIndex++;
+                selectedAnswers = [];
+                renderQuestion();
+            } else {
+                finishQuestionnaire();
+            }
+        }
+
+        function finishQuestionnaire() {
+            document.getElementById('questionContainer').style.display = 'none';
+            document.querySelector('.skip-hint').style.display = 'none';
+            document.querySelector('.modal-footer').style.display = 'none';
+            
+            const insightCard = document.getElementById('insightCard');
+            insightCard.classList.add('show');
+            
+            const randomInsight = insights[Math.floor(Math.random() * insights.length)];
+            document.getElementById('insightContent').innerHTML = `${randomInsight.emoji} ${randomInsight.text}`;
+            
+            setTimeout(() => {
+                closeQuestionnaire();
+                showResults();
+            }, 3500);
+        }
+
+        function closeQuestionnaire() {
+            document.getElementById('questionnaireOverlay').classList.remove('show');
+            
+            setTimeout(() => {
+                document.getElementById('questionContainer').style.display = 'block';
+                document.querySelector('.skip-hint').style.display = 'block';
+                document.querySelector('.modal-footer').style.display = 'flex';
+                document.getElementById('insightCard').classList.remove('show');
+            }, 300);
+        }
+
+        function showResults() {
+            const resultsDiv = document.getElementById('results');
+            const output = document.getElementById('answersOutput');
+            
+            output.textContent = JSON.stringify(answers, null, 2);
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('questionnaireOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'questionnaireOverlay') {
+                closeQuestionnaire();
+            }
+        });
+    </script>
+</body>
+</html>

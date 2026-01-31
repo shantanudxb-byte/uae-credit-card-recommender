@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2024-01",
+    "description": "Verified credit card application URLs only"
+  },
+  "cards": {
+    "Amazon.ae Credit Card": {
+      "apply_url": "https://www.emiratesislamic.ae/en/personal-banking/cards/credit-cards/amazon-credit-card",
+      "bank": "Emirates Islamic Bank"
+    },
+    "Noon VIP Credit Card": {
+      "apply_url": "https://www.noon.com/uae-en/noon-vip-credit-card",
+      "bank": "Emirates NBD"
+    },
+    "Liv Cashback Card": {
+      "apply_url": "https://www.liv.me/en/credit-card",
+      "bank": "Emirates NBD"
+    },
+    "WIO Mastercard": {
+      "apply_url": "https://wio.io/personal-credit",
+      "bank": "WIO Bank"
+    },
+    "Emirates NBD Duo Credit Card": {
+      "apply_url": "https://www.emiratesnbd.com/en/personal-banking/credit-cards/duo",
+      "bank": "Emirates NBD"
+    },
+    "Emirates NBD Visa Flexi Credit Card": {
+      "apply_url": "https://www.emiratesnbd.com/en/personal-banking/credit-cards/visa-flexi",
+      "bank": "Emirates NBD"
+    },
+    "ENBD Infinite Card": {
+      "apply_url": "https://www.emiratesnbd.com/en/personal-banking/credit-cards/infinite",
+      "bank": "Emirates NBD"
+    },
+    "Emirates NBD Go4it Gold Credit Card": {
+      "apply_url": "https://www.emiratesnbd.com/en/personal-banking/credit-cards/go4it-gold",
+      "bank": "Emirates NBD"
+    },
+    "Emirates NBD Manchester United Credit Card": {
+      "apply_url": "https://www.emiratesnbd.com/en/cards/credit-cards/manchester-united-credit-card",
+      "bank": "Emirates NBD"
+    }
+  }
+}

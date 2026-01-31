@@ -1,0 +1,582 @@
+[
+  {
+    "name": "Emirates Skywards Signature Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 995,
+    "min_salary": 15000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 3.0,
+      "fuel": 1.5,
+      "online": 1.0,
+      "dining": 2.0
+    },
+    "best_for": ["travel", "miles", "airport_lounge", "emirates"],
+    "notes": "Earn 3 Skywards Miles per AED on travel bookings. Includes complimentary airport lounge access and travel insurance. Best for frequent Emirates flyers."
+  },
+  {
+    "name": "Etihad Guest Platinum Card",
+    "bank": "FAB",
+    "annual_fee": 500,
+    "min_salary": 8000,
+    "rewards": {
+      "groceries": 1.5,
+      "travel": 4.0,
+      "fuel": 1.0,
+      "online": 1.5,
+      "dining": 2.5
+    },
+    "best_for": ["travel", "miles", "dining", "airport_lounge", "etihad"],
+    "notes": "Earn 4 Etihad Guest Miles per AED on Etihad flights and 2.5 on dining. Free lounge access and priority check-in. Ideal for Etihad loyalists.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/etihad-guest-platinum"
+  },
+  {
+    "name": "FAB Infinite Credit Card",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 100000,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 5.0,
+      "fuel": 2.0,
+      "online": 2.0,
+      "dining": 3.0
+    },
+    "best_for": ["ultra_premium", "travel", "concierge", "airport_lounge", "luxury"],
+    "notes": "Ultra-premium Visa Infinite card with exclusive benefits, unlimited lounge access, concierge services, and premium travel insurance. Invitation-only or high salary requirement.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/infinite"
+  },
+  {
+    "name": "FAB Elite Credit Card",
+    "bank": "FAB",
+    "annual_fee": 1200,
+    "min_salary": 50000,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 4.0,
+      "fuel": 2.0,
+      "online": 2.0,
+      "dining": 3.0
+    },
+    "best_for": ["luxury", "lifestyle", "travel", "concierge", "airport_lounge"],
+    "notes": "First year free, then 1200 AED. Mastercard Elite with luxury lifestyle benefits, concierge services, and premium travel perks. For high-income professionals.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/elite"
+  },
+  {
+    "name": "FAB SHARE Signature",
+    "bank": "FAB",
+    "annual_fee": 1500,
+    "min_salary": 30000,
+    "rewards": {
+      "groceries": 5.0,
+      "travel": 2.0,
+      "fuel": 2.0,
+      "online": 2.0,
+      "dining": 3.0,
+      "entertainment": 5.0
+    },
+    "best_for": ["maf", "groceries", "entertainment", "carrefour", "vox", "premium"],
+    "notes": "Premium MAF co-branded card with enhanced SHARE points earning at Carrefour, VOX Cinemas, and MAF properties. Signature-level benefits and services.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/share-signature"
+  },
+  {
+    "name": "FAB Signature",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 25000,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 3.0,
+      "fuel": 2.0,
+      "online": 2.0,
+      "dining": 2.5
+    },
+    "best_for": ["premium", "travel", "airport_lounge", "signature_benefits"],
+    "notes": "Visa Signature card with premium benefits, airport lounge access, and enhanced rewards. Signature-level services and travel insurance.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/signature"
+  },
+  {
+    "name": "Etihad Guest Infinite",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 100000,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 6.0,
+      "fuel": 2.0,
+      "online": 2.0,
+      "dining": 4.0
+    },
+    "best_for": ["etihad", "travel", "miles", "ultra_premium", "airport_lounge"],
+    "notes": "Ultra-premium Etihad co-branded Visa Infinite with highest miles earning rates, unlimited lounge access, and exclusive Etihad benefits.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/etihad-guest-infinite"
+  },
+  {
+    "name": "Etihad Guest Signature",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 40000,
+    "rewards": {
+      "groceries": 1.5,
+      "travel": 5.0,
+      "fuel": 1.5,
+      "online": 1.5,
+      "dining": 3.0
+    },
+    "best_for": ["etihad", "travel", "miles", "premium", "airport_lounge"],
+    "notes": "Premium Etihad co-branded Visa Signature with enhanced miles earning, lounge access, and Etihad elite benefits.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/etihad-guest-signature"
+  },
+  {
+    "name": "GEMS World Credit Card",
+    "bank": "FAB",
+    "annual_fee": 399,
+    "min_salary": 8000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 2.0,
+      "fuel": 1.0,
+      "online": 1.0,
+      "dining": 1.5,
+      "education": 5.0
+    },
+    "best_for": ["education", "gems", "school_fees", "family"],
+    "notes": "First year free, then 399 AED. Mastercard World co-branded with GEMS Education. Special benefits for school fees and education-related expenses.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/gems-world"
+  },
+  {
+    "name": "BLUE Al-Futtaim Platinum",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 8000,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 1.0,
+      "dining": 1.5,
+      "retail": 3.0
+    },
+    "best_for": ["no_fee", "retail", "al_futtaim", "shopping"],
+    "notes": "Free Mastercard Platinum co-branded with Al-Futtaim. Enhanced rewards at Al-Futtaim retail outlets and partner stores.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/blue-al-futtaim"
+  },
+  {
+    "name": "du Credit Card",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 2.0,
+      "dining": 1.0,
+      "telecom": 5.0
+    },
+    "best_for": ["no_fee", "du", "telecom", "mobile_bills"],
+    "notes": "Free Mastercard Classic co-branded with du. Enhanced rewards on du services and telecom spending. Special offers for du customers.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/du"
+  },
+  {
+    "name": "FAB Rewards Active Credit Card",
+    "bank": "FAB",
+    "annual_fee": 300,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 1.0,
+      "dining": 1.0,
+      "fitness": 1.0
+    },
+    "best_for": ["fitness", "gym", "sports", "active_lifestyle", "sun_sand_sports", "step_tracking"],
+    "notes": "Unique fitness-focused card offering free access to 25+ UAE gyms, 30% off sports equipment at Sun & Sand Sports, and innovative step-based rewards (earn for walking). Up to 1 FAB Reward per AED spent. Perfect for active individuals who want to combine credit card benefits with fitness goals.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/rewards-active"
+  },
+  {
+    "name": "FAB ADNOC Rewards Credit Card",
+    "bank": "FAB",
+    "annual_fee": 300,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 1.0,
+      "fuel": 15.0,
+      "online": 1.0,
+      "dining": 1.0,
+      "salik": 3.0,
+      "parking": 3.0
+    },
+    "best_for": ["fuel", "adnoc", "salik", "parking", "commuting", "abu_dhabi"],
+    "notes": "Best ADNOC fuel card in UAE with industry-leading 15% cashback (vs ADCB's 10%), 3% on tolls/parking, 300 AED welcome bonus in ADNOC points, and Gold membership fast-track. Annual fee breaks even with just 167 AED monthly ADNOC spend. Essential for Abu Dhabi residents.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/adnoc-rewards"
+  },
+  {
+    "name": "FAB Z Card",
+    "bank": "FAB",
+    "annual_fee": 100,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 0,
+      "travel": 0,
+      "fuel": 0,
+      "online": 0,
+      "dining": 0,
+      "streaming": 20.0
+    },
+    "best_for": ["no_fee_first_year", "streaming", "digital", "low_interest", "careem", "noon", "youth"],
+    "notes": "First year free, then 100 AED. FAB's lowest interest rate. FREE Careem Plus (228 AED value) + FREE noon One (99 AED value) + 20% off Netflix/Spotify/Shahid. Benefits worth 327+ AED annually. Perfect for young professionals and subscription service users.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/z-card"
+  },
+  {
+    "name": "FAB Cashback Credit Card",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 5.0,
+      "travel": 3.0,
+      "fuel": 1.0,
+      "online": 1.0,
+      "dining": 5.0,
+      "fashion": 5.0
+    },
+    "best_for": ["no_fee", "cashback", "fashion", "dining", "groceries", "carrefour"],
+    "notes": "Free for Life (previously 300 AED). 5% cashback on fashion, dining, and groceries. 3% on international spends. 1% unlimited on everything else. 40 AED off Carrefour online orders. Lowest salary requirement (5K).",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/cashback"
+  },
+  {
+    "name": "FAB Rewards Indulge Card",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 5.0,
+      "dining": 1.0
+    },
+    "best_for": ["no_fee", "online", "airport_lounge", "dining", "namshi", "entertainment"],
+    "notes": "Free for Life with FREE worldwide airport lounge access (rare for free card). 5X rewards on online shopping. 20% off at 150+ restaurants, Namshi.com, and entertainment. Monthly bonus rewards. Only 5K salary required.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/rewards-indulge"
+  },
+  {
+    "name": "Manchester City Titanium Credit Card",
+    "bank": "FAB",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 10.0,
+      "fuel": 1.0,
+      "online": 1.0,
+      "dining": 1.0,
+      "international": 10.0
+    },
+    "best_for": ["no_fee", "manchester_city", "sports", "airport_lounge", "travel", "international"],
+    "notes": "Free for Life Manchester City co-branded card. Up to 10X FAB Rewards internationally and domestically. Free airport lounge access. Win trips to Etihad Stadium and match tickets. Special Man City merchandise discounts. Perfect for Man City fans.",
+    "apply_url": "https://www.bankfab.com/en-ae/personal/cards/credit-cards/apply/manchester-city"
+  },
+  {
+    "name": "ADCB Traveller Card",
+    "bank": "ADCB",
+    "annual_fee": 0,
+    "min_salary": 8000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 2.0,
+      "fuel": 1.5,
+      "online": 2.0,
+      "dining": 1.5
+    },
+    "best_for": ["no_fee", "travel", "online"],
+    "notes": "No annual fee with 8K salary. Earn 2% cashback on travel and online shopping. Great starter card for budget-conscious travelers."
+  },
+  {
+    "name": "Liv Cashback Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 2.5,
+      "travel": 1.0,
+      "fuel": 2.0,
+      "online": 3.0,
+      "dining": 2.0
+    },
+    "best_for": ["no_fee", "cashback", "online", "groceries"],
+    "notes": "Zero annual fee, minimum 5K salary. Up to 3% cashback on online shopping and 2.5% on groceries. Perfect for everyday spending and digital natives."
+  },
+  {
+    "name": "ENBD Infinite Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 1500,
+    "min_salary": 0,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 2.0,
+      "fuel": 2.0,
+      "online": 2.0,
+      "dining": 2.0
+    },
+    "best_for": ["premium", "travel", "concierge", "airport_lounge", "golf"],
+    "notes": "Free for Life (limited offer). 2 Plus Points per 100 AED. Airport lounge access, concierge, golf, valet parking in Abu Dhabi, travel insurance. Estimated savings 11,150 AED/year."
+  },
+  {
+    "name": "Emirates NBD Duo Credit Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 0,
+    "rewards": {
+      "groceries": 5.0,
+      "fuel": 5.0,
+      "utilities": 5.0,
+      "electronics": 5.0,
+      "education": 5.0,
+      "online": 0.5,
+      "travel": 0.5,
+      "dining": 0.5
+    },
+    "best_for": ["no_fee", "groceries", "utilities", "education", "airport_lounge", "golf"],
+    "notes": "Free for Life. Dual card (Diners Club + Mastercard Platinum). 5% Plus Points on groceries, utilities, electronics, education, fuel with 5K AED monthly spend. Unlimited lounge access, golf, cinema BOGO. Estimated savings 8,156 AED/year."
+  },
+  {
+    "name": "Emirates NBD Visa Flexi Credit Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 0,
+    "rewards": {
+      "groceries": 0,
+      "travel": 0,
+      "fuel": 0,
+      "online": 0,
+      "dining": 0
+    },
+    "best_for": ["customizable", "travel", "airport_lounge", "golf", "careem"],
+    "notes": "Customizable benefits card. Choose 3 travel benefits (lounge, airport transfer, eSIM, tax claims, smart delay), 2 lifestyle benefits (concierge, golf, Careem 1200 AED/year, SupperClub), 1 entertainment (Anghami, VOX, Starzplay). Estimated savings 5,640 AED/year."
+  },
+  {
+    "name": "Emirates NBD Go4it Gold Credit Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 0,
+    "rewards": {
+      "groceries": 0,
+      "travel": 0,
+      "fuel": 0,
+      "online": 0,
+      "dining": 0
+    },
+    "best_for": ["no_fee", "nol", "dubai_transport", "salik"],
+    "notes": "Built-in Nol chip for Dubai Metro, Bus, RTA parking. Nol & Salik auto top-up. Free Dubai Ferry rides. 10% off holiday packages. Up to 5 free supplementary cards. Estimated savings 2,500 AED/year."
+  },
+  {
+    "name": "Emirates NBD Manchester United Credit Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 0,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 2.0,
+      "fuel": 1.0,
+      "online": 1.0,
+      "dining": 5.0,
+      "entertainment": 10.0
+    },
+    "best_for": ["no_fee", "dining", "sports", "manchester_united", "airport_lounge"],
+    "notes": "Free for Life. 1 RED Point per AED, 5X on dining, 10X at sports stores, 2X international. Guaranteed Home Jersey (2K spend in 30 days). Unlimited GCC lounge access. Chance to win Old Trafford trip. Estimated savings 2,307 AED/year."
+  },
+  {
+    "name": "Mashreq Cashback Card",
+    "bank": "Mashreq",
+    "annual_fee": 500,
+    "min_salary": 10000,
+    "rewards": {
+      "groceries": 3.0,
+      "travel": 1.5,
+      "fuel": 3.5,
+      "online": 2.0,
+      "dining": 2.5
+    },
+    "best_for": ["cashback", "fuel", "groceries"],
+    "notes": "Earn 3.5% cashback on fuel and 3% on groceries. Low annual fee waived on 10K monthly spend. Best for daily commuters and grocery shoppers."
+  },
+  {
+    "name": "Amazon.ae Credit Card",
+    "bank": "Emirates Islamic Bank",
+    "annual_fee": 0,
+    "min_salary": 15000,
+    "rewards": {
+      "groceries": 6.0,
+      "travel": 2.5,
+      "fuel": 2.0,
+      "online": 6.0,
+      "dining": 2.0,
+      "international": 2.5,
+      "domestic": 2.0
+    },
+    "best_for": ["no_fee", "amazon", "online", "groceries", "prime_members", "international"],
+    "notes": "Zero annual fee. Up to 6% on Amazon for Prime members (3% non-Prime). Up to 2.5% international, 2% domestic. Welcome bonus: 750 AED (Prime) or 300 AED (non-Prime) on 10K spend in 60 days. Monthly benefits: 40 AED off Carrefour, 20% off Talabat, 10% off Justlife. Golf, cinema, valet parking with spend tiers.",
+    "welcome_bonus": {
+      "prime_members": "750 AED on 10K spend in 60 days",
+      "non_prime": "300 AED on 10K spend in 60 days",
+      "validity": "Oct 30, 2025 – Feb 28, 2026"
+    },
+    "lifestyle_benefits": {
+      "justlife": "10% off all services",
+      "carrefour": "40 AED off monthly (min 250 AED spend)",
+      "talabat": "20% off 1 order/month",
+      "reel_cinemas": "2x BOGO tickets/month (3K spend required)",
+      "golf": "2 rounds/month at premium courses (5K spend required)",
+      "valet_parking": "1 service/month (3K spend required)",
+      "fiit_app": "25% off first subscription"
+    }
+  },
+  {
+    "name": "Noon VIP Credit Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 6.0,
+      "dining": 2.0
+    },
+    "best_for": ["no_fee", "cashback", "online", "noon"],
+    "notes": "Zero annual fee. 6% Noon Credits on noon.com, Noon Food, and Noon Daily. Free Noon VIP membership. Perfect for Noon shoppers."
+  },
+  {
+    "name": "Lulu 247 Credit Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 5.0,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 1.0,
+      "dining": 1.0
+    },
+    "best_for": ["no_fee", "groceries", "lulu"],
+    "notes": "Zero annual fee. 5x points per AED at all Lulu stores. Exclusive Lulu promotions. Perfect for Lulu shoppers."
+  },
+  {
+    "name": "RAKBank World Elite Card",
+    "bank": "RAKBank",
+    "annual_fee": 1500,
+    "min_salary": 25000,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 4.0,
+      "fuel": 2.0,
+      "online": 2.5,
+      "dining": 3.5,
+      "entertainment": 2.0
+    },
+    "best_for": ["dining", "travel", "premium", "airport_lounge"],
+    "notes": "Earn 4% on travel and 3.5% on dining. Includes buy-one-get-one dining offers, lounge access, and travel insurance. Great for foodies and travelers."
+  },
+  {
+    "name": "U by Emaar Credit Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 8000,
+    "rewards": {
+      "groceries": 1.5,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 2.0,
+      "dining": 2.5,
+      "entertainment": 4.0
+    },
+    "best_for": ["no_fee", "entertainment", "dining", "dubai_mall"],
+    "notes": "Zero annual fee. Earn 2x U Points per AED at Dubai Mall, Reel Cinemas, and Emaar Entertainment venues. 10% off at Dubai Aquarium, Ski Dubai. Perfect for Dubai lifestyle."
+  },
+  {
+    "name": "SHARE Credit Card",
+    "bank": "Majid Al Futtaim Finance",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 5.0,
+      "travel": 1.0,
+      "fuel": 2.0,
+      "online": 2.0,
+      "dining": 3.0,
+      "entertainment": 5.0
+    },
+    "best_for": ["no_fee", "groceries", "entertainment", "carrefour", "vox"],
+    "notes": "Zero annual fee. Earn 5 SHARE points per AED at Carrefour, VOX Cinemas, Magic Planet, City Centre malls. 3 points on dining. Redeem at 400+ MAF outlets. Perfect for MAF shoppers."
+  },
+  {
+    "name": "Landmark Rewards Credit Card",
+    "bank": "Emirates NBD",
+    "annual_fee": 0,
+    "min_salary": 5000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 4.0,
+      "dining": 2.0,
+      "entertainment": 1.0
+    },
+    "best_for": ["no_fee", "online", "retail", "landmark"],
+    "notes": "Zero annual fee. Earn 4x Landmark Rewards at Centrepoint, Splash, Babyshop, Lifestyle, Home Centre, Max Fashion. 2x at dining. Perfect for Landmark Group shoppers."
+  },
+  {
+    "name": "WIO Mastercard",
+    "bank": "WIO Bank",
+    "annual_fee": 0,
+    "min_salary": 0,
+    "rewards": {
+      "groceries": 2.0,
+      "travel": 2.0,
+      "fuel": 2.0,
+      "online": 2.0,
+      "dining": 2.0,
+      "entertainment": 2.0,
+      "education": 2.0,
+      "healthcare": 2.0,
+      "utilities": 2.0
+    },
+    "best_for": ["no_fee", "cashback", "no_salary"],
+    "notes": "Zero annual fee. No minimum salary required. 2% cashback on all spending categories. Digital-first banking. Perfect for everyone seeking simple flat cashback."
+  },
+  {
+    "name": "Deem Mastercard",
+    "bank": "Emirates Islamic Bank",
+    "annual_fee": 0,
+    "min_salary": 0,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 1.0,
+      "fuel": 1.0,
+      "online": 1.0,
+      "dining": 1.0,
+      "entertainment": 1.0
+    },
+    "best_for": ["no_fee", "cashback", "no_salary", "islamic"],
+    "notes": "Zero annual fee. No minimum salary. 1% cashback on all purchases. Shariah-compliant Islamic banking. Instant digital card. Perfect for students and entry-level professionals."
+  },
+  {
+    "name": "RAKBank Air Arabia Platinum Card",
+    "bank": "RAKBank",
+    "annual_fee": 500,
+    "min_salary": 10000,
+    "rewards": {
+      "groceries": 1.0,
+      "travel": 5.0,
+      "fuel": 1.5,
+      "online": 1.0,
+      "dining": 2.0
+    },
+    "best_for": ["travel", "miles", "air_arabia"],
+    "notes": "Earn 5 Air Rewards points per AED on Air Arabia flights. 1 point per AED on other spending. Free baggage allowance and priority check-in on Air Arabia. Perfect for frequent Air Arabia travelers."
+  }
+]

@@ -1,0 +1,137 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "description": "Mapping between services and credit card benefits"
+  },
+  "co_branded_cards": {
+    "amazon_ae": {
+      "card_name": "Amazon.ae Credit Card",
+      "bank": "Emirates Islamic Bank",
+      "benefit": "5% back as Amazon.ae balance",
+      "priority": 1
+    },
+    "amazon_fresh": {
+      "card_name": "Amazon.ae Credit Card",
+      "bank": "Emirates Islamic Bank",
+      "benefit": "5% back on Amazon Fresh groceries",
+      "priority": 1
+    },
+    "noon": {
+      "card_name": "Noon VIP Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "6% Noon Credits on noon.com",
+      "priority": 1
+    },
+    "lulu": {
+      "card_name": "Lulu 247 Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "5x points at all Lulu stores",
+      "priority": 1
+    },
+    "emirates": {
+      "card_name": "Emirates Skywards Signature Card",
+      "bank": "Emirates NBD",
+      "benefit": "3 Skywards Miles per AED on travel",
+      "priority": 1
+    },
+    "etihad": {
+      "card_name": "Etihad Guest Platinum Card",
+      "bank": "FAB",
+      "benefit": "4 Etihad Guest Miles per AED",
+      "priority": 1
+    },
+    "dubai_mall": {
+      "card_name": "U by Emaar Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "2x U Points at Dubai Mall",
+      "priority": 1
+    },
+    "vox_cinemas": {
+      "card_name": "SHARE Credit Card",
+      "bank": "Majid Al Futtaim Finance",
+      "benefit": "5 SHARE points per AED at VOX Cinemas",
+      "priority": 1
+    },
+    "carrefour": {
+      "card_name": "SHARE Credit Card",
+      "bank": "Majid Al Futtaim Finance",
+      "benefit": "5 SHARE points per AED at Carrefour",
+      "priority": 1
+    },
+    "city_centre": {
+      "card_name": "SHARE Credit Card",
+      "bank": "Majid Al Futtaim Finance",
+      "benefit": "5 SHARE points at City Centre malls",
+      "priority": 1
+    },
+    "magic_planet": {
+      "card_name": "SHARE Credit Card",
+      "bank": "Majid Al Futtaim Finance",
+      "benefit": "5 SHARE points at Magic Planet",
+      "priority": 1
+    },
+    "centrepoint": {
+      "card_name": "Landmark Rewards Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "4x Landmark Rewards at Centrepoint",
+      "priority": 1
+    },
+    "splash": {
+      "card_name": "Landmark Rewards Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "4x Landmark Rewards at Splash",
+      "priority": 1
+    },
+    "lifestyle": {
+      "card_name": "Landmark Rewards Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "4x Landmark Rewards at Lifestyle",
+      "priority": 1
+    },
+    "home_centre": {
+      "card_name": "Landmark Rewards Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "4x Landmark Rewards at Home Centre",
+      "priority": 1
+    },
+    "max_fashion": {
+      "card_name": "Landmark Rewards Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "4x Landmark Rewards at Max Fashion",
+      "priority": 1
+    },
+    "reel_cinemas": {
+      "card_name": "U by Emaar Credit Card",
+      "bank": "Emirates NBD",
+      "benefit": "2x U Points at Reel Cinemas",
+      "priority": 1
+    },
+    "air_arabia": {
+      "card_name": "RAKBank Air Arabia Platinum Card",
+      "bank": "RAKBank",
+      "benefit": "5 Air Rewards points per AED on Air Arabia flights",
+      "priority": 1
+    },
+    "etisalat": {
+      "card_name": "CBD Smiles Visa Signature",
+      "bank": "CBD",
+      "benefit": "Earn Smiles points",
+      "priority": 1
+    }
+  },
+  "partner_benefits": {
+    "adnoc": ["ADCB SimplyLife Credit Card"],
+    "enoc": ["Emirates NBD Beyond Credit Card"],
+    "carrefour": ["ADCB SimplyLife Credit Card", "SHARE Credit Card"],
+    "noon_food": ["Noon VIP Credit Card"],
+    "noon_daily": ["Noon VIP Credit Card"],
+    "amazon_fresh": ["Amazon.ae Credit Card"],
+    "flydubai": ["Emirates Skywards Signature Card"],
+    "reel_cinemas": ["U by Emaar Credit Card"],
+    "vox_cinemas": ["U by Emaar Credit Card", "SHARE Credit Card"],
+    "dubai_parks": ["U by Emaar Credit Card"],
+    "city_centre": ["SHARE Credit Card"],
+    "magic_planet": ["SHARE Credit Card"],
+    "smiles": ["CBD Smiles Visa Signature"]
+  }
+}

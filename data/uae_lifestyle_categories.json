@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "description": "UAE lifestyle apps and services for credit card matching"
+  },
+  "categories": {
+    "ride_hailing": {
+      "display_name": "Ride Hailing & Transportation",
+      "options": ["careem", "uber", "bolt", "yango", "rta_nol"]
+    },
+    "fuel_stations": {
+      "display_name": "Fuel & EV Charging",
+      "options": ["adnoc", "enoc", "emarat"]
+    },
+    "groceries": {
+      "display_name": "Grocery Shopping",
+      "options": ["carrefour", "lulu", "union_coop", "spinneys", "amazon_fresh", "noon_daily", "talabat_mart"]
+    },
+    "food_delivery": {
+      "display_name": "Food Delivery",
+      "options": ["talabat", "deliveroo", "noon_food", "careem_food", "smiles"]
+    },
+    "online_shopping": {
+      "display_name": "Online Shopping",
+      "options": ["amazon_ae", "noon", "namshi", "shein"]
+    },
+    "retail_malls": {
+      "display_name": "Malls & Retail",
+      "options": ["dubai_mall", "mall_of_emirates", "city_centre"]
+    },
+    "airlines": {
+      "display_name": "Airlines",
+      "options": ["emirates", "etihad", "flydubai", "air_arabia"]
+    },
+    "entertainment": {
+      "display_name": "Entertainment",
+      "options": ["vox_cinemas", "reel_cinemas", "netflix", "spotify"]
+    },
+    "telecom": {
+      "display_name": "Telecom",
+      "options": ["etisalat", "du"]
+    }
+  }
+}
