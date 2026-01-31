@@ -418,8 +418,18 @@
       "international": 2.5,
       "domestic": 2.0
     },
+    "rewards_prime": {
+      "amazon_spend": 6.0,
+      "international": 2.5,
+      "domestic": 2.0
+    },
+    "rewards_non_prime": {
+      "amazon_spend": 3.0,
+      "international": 1.0,
+      "domestic": 1.0
+    },
     "best_for": ["no_fee", "amazon", "online", "groceries", "prime_members", "international"],
-    "notes": "Zero annual fee. Up to 6% on Amazon for Prime members (3% non-Prime). Up to 2.5% international, 2% domestic. Welcome bonus: 750 AED (Prime) or 300 AED (non-Prime) on 10K spend in 60 days. Monthly benefits: 40 AED off Carrefour, 20% off Talabat, 10% off Justlife. Golf, cinema, valet parking with spend tiers.",
+    "notes": "Zero annual fee. Prime members: 6% on Amazon.ae, 2.5% international, 2% domestic. Non-Prime: 3% on Amazon.ae, 1% international, 1% domestic. Welcome bonus: 750 AED (Prime) or 300 AED (non-Prime) on 10K spend in 60 days.",
     "welcome_bonus": {
       "prime_members": "750 AED on 10K spend in 60 days",
       "non_prime": "300 AED on 10K spend in 60 days",

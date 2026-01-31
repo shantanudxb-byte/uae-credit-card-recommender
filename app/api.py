@@ -123,11 +123,12 @@ def chat():
     try:
         data = request.json
         message = data.get('message', '')
+        user_profile = data.get('profile', {})
         
         if not message:
             return jsonify({'error': 'Message required'}), 400
         
-        response = advisor.chat_turn(message)
+        response = advisor.chat_turn(message, user_profile)
         
         return jsonify({'response': response}), 200
         

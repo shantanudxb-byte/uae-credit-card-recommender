@@ -2,6 +2,7 @@ import json
 import os
 from app.rag_pipeline import get_cards_retriever
 from app.memory import get_conversation_memory
+from app.llm_agent import LLMAgent
 
 class CardAdvisor:
     def __init__(self):
@@ -10,6 +11,7 @@ class CardAdvisor:
         self.cards_data = self._load_cards()
         self.service_mapping = self._load_service_mapping()
         self.apply_urls = self._load_apply_urls()
+        self.llm_agent = LLMAgent()
     
     def _load_cards(self):
         data_path = os.path.join(os.path.dirname(__file__), "..", "data", "uae_cards.json")
@@ -65,6 +67,10 @@ class CardAdvisor:
         
         # Sort by top choice status and score
         unique_recommendations.sort(key=lambda x: (x.get("is_top_choice", False), x["fit_score"]), reverse=True)
+        
+        # Add LLM explanations to top 3 cards
+        for card in unique_recommendations[:3]:
+            card["ai_explanation"] = self.llm_agent.generate_card_explanation(card, user_profile)
         
         # Generate follow-up questions if too many recommendations
         follow_up_questions = self._generate_follow_up_questions(unique_recommendations, user_profile)
@@ -155,6 +161,16 @@ class CardAdvisor:
                 dining_rate = card["rewards"].get("dining", 0)
                 if dining_spend > 3000 and dining_rate >= 3:
                     score += 0.3
+            
+            # Boost for high travel reward rates
+            if "travel" in goals or "miles" in goals:
+                travel_rate = card["rewards"].get("travel", 0)
+                international_rate = card["rewards"].get("international", 0)
+                best_rate = max(travel_rate, international_rate)
+                if best_rate >= 5:
+                    score += 0.2
+                elif best_rate >= 3:
+                    score += 0.1
             
             # Entry-level card boost for low salary
             if salary <= 6000 and "no_fee" in goals:
@@ -599,24 +615,8 @@ class CardAdvisor:
         }
         return mapping.get(spend_category, "")
     
-    def chat_turn(self, user_message: str) -> str:
+    def chat_turn(self, user_message: str, user_profile: dict = None) -> str:
         docs = self.retriever.get_relevant_documents(user_message)
         context = "\n".join([doc.page_content[:500] for doc in docs[:3]])
         
-        message_lower = user_message.lower()
-        
-        if "no fee" in message_lower:
-            no_fee_cards = [c for c in self.cards_data if c["annual_fee"] == 0]
-            response = "Cards with NO annual fee:\n"
-            for card in no_fee_cards:
-                response += f"• {card['name']} ({card['bank']}) - Min salary: {card['min_salary']} AED\n"
-            return response
-        
-        if "travel" in message_lower or "miles" in message_lower:
-            travel_cards = [c for c in self.cards_data if "travel" in c.get("best_for", [])]
-            response = "Best cards for TRAVEL/MILES:\n"
-            for card in travel_cards:
-                response += f"• {card['name']} - {card['rewards'].get('travel', 0)}% on travel\n"
-            return response
-        
-        return f"Based on your question:\n\n{context[:800]}"
+        return self.llm_agent.answer_question(user_message, context, user_profile)
